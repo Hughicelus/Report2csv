@@ -33,7 +33,26 @@
        <string>导入</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_2">
-       <item row="2" column="0" colspan="3">
+       <item row="0" column="4">
+        <widget class="QPushButton" name="pushButton_2">
+         <property name="font">
+          <font>
+           <family>Microsoft YaHei</family>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(0, 170, 0);
+color: rgb(255, 255, 255);</string>
+         </property>
+         <property name="text">
+          <string>开始</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3">
+        <widget class="QLineEdit" name="lineEdit"/>
+       </item>
+       <item row="4" column="0" colspan="5">
         <widget class="QTableWidget" name="tableWidget">
          <property name="font">
           <font>
@@ -98,10 +117,7 @@
          </column>
         </widget>
        </item>
-       <item row="0" column="1">
-        <widget class="QLineEdit" name="lineEdit"/>
-       </item>
-       <item row="0" column="0">
+       <item row="0" column="2">
         <widget class="QPushButton" name="pushButton">
          <property name="font">
           <font>
@@ -117,20 +133,38 @@ color: rgb(255, 255, 255);</string>
          </property>
         </widget>
        </item>
-       <item row="0" column="2">
-        <widget class="QPushButton" name="pushButton_2">
-         <property name="font">
-          <font>
-           <family>Microsoft YaHei</family>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(0, 170, 0);
-color: rgb(255, 255, 255);</string>
-         </property>
-         <property name="text">
-          <string>开始</string>
-         </property>
+       <item row="0" column="1">
+        <widget class="QComboBox" name="comboBox">
+         <item>
+          <property name="text">
+           <string>ET0</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>ET1</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>ET2</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>PT1</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>PT2</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>SOP</string>
+          </property>
+         </item>
         </widget>
        </item>
       </layout>

@@ -1,355 +1,112 @@
-2025-03-17 23:10:28,443 Database connected: D:\PycharmProjects\pyside6_project\data.db
-2025-03-17 23:10:28,486 Database connected: D:\PycharmProjects\pyside6_project\data.db
-2025-03-17 23:10:28,500 Database connected: D:\PycharmProjects\pyside6_project\data.db
-2025-03-17 23:10:28,501 Database connected: D:\PycharmProjects\pyside6_project\data.db
-2025-03-17 23:10:28,502 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,502 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,503 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,503 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,503 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,503 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,504 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,504 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,504 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,504 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,505 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,506 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,506 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,507 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,507 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,507 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,507 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,508 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,508 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,508 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,509 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,509 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,510 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,510 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,510 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,511 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,511 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,511 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,511 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,511 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,512 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,512 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,513 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,513 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,513 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,514 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,514 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,514 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,515 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,515 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,515 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,515 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,516 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,516 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,516 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,517 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,517 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,517 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,517 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,517 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,517 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,517 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,518 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,518 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,519 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,519 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,519 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,520 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,521 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,521 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,521 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,522 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,523 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,523 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,523 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,523 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,524 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,524 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,524 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,525 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,525 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,525 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,526 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,526 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,526 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,526 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,527 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,527 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,527 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,527 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,527 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,528 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,528 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,528 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,528 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,528 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,528 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,528 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,529 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,530 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,530 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,530 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,530 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,531 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,531 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,531 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,531 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,532 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,532 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,532 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,532 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,533 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,533 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,533 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,533 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,533 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,534 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,534 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,534 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,535 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,535 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,535 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,535 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,536 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,537 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,537 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,537 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,537 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,537 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,538 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,538 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,538 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,538 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,538 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,539 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,539 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,540 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,540 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,540 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,540 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,540 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,541 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,541 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,541 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,542 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,542 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,542 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,542 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,543 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,543 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,543 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,543 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,544 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,544 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,544 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,544 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,545 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,545 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,545 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,546 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,546 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,546 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,546 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,547 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,547 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,547 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,547 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,548 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,548 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,548 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,548 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,548 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,548 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,549 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,549 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,549 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,549 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,549 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,549 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,550 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,550 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,550 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,550 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,550 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,550 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,551 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,551 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,551 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,551 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,551 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,551 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,552 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,552 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,552 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,552 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,552 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,552 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,552 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,553 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,553 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,553 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,553 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,553 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,553 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,553 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,554 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,554 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,554 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,554 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,554 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,554 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,555 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,555 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,555 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,555 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,555 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,555 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,556 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,556 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,556 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,556 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,556 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,556 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,556 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,557 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,557 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,557 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,557 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,557 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,557 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,557 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,558 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,558 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,558 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,558 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,558 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,558 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,558 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,558 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,559 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,559 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,559 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,559 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,559 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,559 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,559 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,560 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,560 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,560 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,560 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,560 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,560 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,560 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,560 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,561 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,561 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,561 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,561 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,561 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,561 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,561 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,562 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,562 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,562 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,562 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,562 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,562 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,562 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,562 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,563 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,563 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,563 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,563 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,563 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,564 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,565 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,565 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,565 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,565 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,566 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,566 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,566 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,566 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,566 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,566 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,567 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,567 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,568 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,568 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,568 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,568 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,568 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,568 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,568 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,568 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,568 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,569 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,569 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,569 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,569 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,569 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,569 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,570 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,570 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,570 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,570 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,570 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,570 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,571 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,571 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,571 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,571 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,571 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,571 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,572 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,572 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,572 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,572 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,572 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,572 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,573 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,573 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,573 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,573 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,573 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,573 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,574 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,574 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,574 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,574 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,574 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,575 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,575 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,575 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,575 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,575 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,575 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,575 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,577 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,577 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,577 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,577 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,577 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,577 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,577 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,577 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,577 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,577 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,578 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,578 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,578 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,578 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,578 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,578 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,579 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,579 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,579 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,579 Insert error: No query Unable to fetch row
-2025-03-17 23:10:28,579 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,579 Insert error: database is locked Unable to fetch row
-2025-03-17 23:10:28,579 数据保存成功: 左前门导轨总成
+2025-03-18 23:17:54,830 Error processing 88 card: (sqlite3.OperationalError) table "ET0" already exists
+[SQL: 
+CREATE TABLE "ET0" (
+	"index" BIGINT, 
+	"零件号" TEXT, 
+	"类型" TEXT, 
+	"编号" TEXT, 
+	"序号" TEXT, 
+	"上公差" TEXT, 
+	"下公差" TEXT, 
+	"零件1" TEXT, 
+	"零件2" TEXT, 
+	"零件3" TEXT, 
+	"零件4" TEXT
+)
+
+]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-03-18 23:17:54,831 Error processing E:/Project/S32/06-零件报告/MDL/外制/敏实/S32-88-右前门导轨总成-K700212760-MDL-2025-02-25.xls: (sqlite3.OperationalError) table "ET0" already exists
+[SQL: 
+CREATE TABLE "ET0" (
+	"index" BIGINT, 
+	"零件号" TEXT, 
+	"类型" TEXT, 
+	"编号" TEXT, 
+	"序号" TEXT, 
+	"上公差" TEXT, 
+	"下公差" TEXT, 
+	"零件1" TEXT, 
+	"零件2" TEXT, 
+	"零件3" TEXT, 
+	"零件4" TEXT
+)
+
+]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-03-18 23:17:54,832 Error processing 88 card: (sqlite3.OperationalError) table "ET0" already exists
+[SQL: 
+CREATE TABLE "ET0" (
+	"index" BIGINT, 
+	"零件号" TEXT, 
+	"类型" TEXT, 
+	"编号" TEXT, 
+	"序号" TEXT, 
+	"上公差" TEXT, 
+	"下公差" TEXT, 
+	"零件1" TEXT, 
+	"零件2" TEXT, 
+	"零件3" TEXT, 
+	"零件4" TEXT
+)
+
+]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-03-18 23:17:54,833 Error processing E:/Project/S32/06-零件报告/MDL/外制/敏实/S32-88-右后门导轨总成-K700218860-MDL-2025-02-25.xls: (sqlite3.OperationalError) table "ET0" already exists
+[SQL: 
+CREATE TABLE "ET0" (
+	"index" BIGINT, 
+	"零件号" TEXT, 
+	"类型" TEXT, 
+	"编号" TEXT, 
+	"序号" TEXT, 
+	"上公差" TEXT, 
+	"下公差" TEXT, 
+	"零件1" TEXT, 
+	"零件2" TEXT, 
+	"零件3" TEXT, 
+	"零件4" TEXT
+)
+
+]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-03-18 23:17:54,835 Error processing 88 card: (sqlite3.OperationalError) table "ET0" already exists
+[SQL: 
+CREATE TABLE "ET0" (
+	"index" BIGINT, 
+	"零件号" TEXT, 
+	"类型" TEXT, 
+	"编号" TEXT, 
+	"序号" TEXT, 
+	"上公差" TEXT, 
+	"下公差" TEXT, 
+	"零件1" TEXT, 
+	"零件2" TEXT, 
+	"零件3" TEXT, 
+	"零件4" TEXT
+)
+
+]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-03-18 23:17:54,835 Error processing E:/Project/S32/06-零件报告/MDL/外制/敏实/S32-88-左前门导轨总成-K700210560 -MDL-2025-02-25.xls: (sqlite3.OperationalError) table "ET0" already exists
+[SQL: 
+CREATE TABLE "ET0" (
+	"index" BIGINT, 
+	"零件号" TEXT, 
+	"类型" TEXT, 
+	"编号" TEXT, 
+	"序号" TEXT, 
+	"上公差" TEXT, 
+	"下公差" TEXT, 
+	"零件1" TEXT, 
+	"零件2" TEXT, 
+	"零件3" TEXT, 
+	"零件4" TEXT
+)
+
+]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-03-18 23:25:12,673 Version: 1 1
+2025-03-18 23:25:12,687 Version: 1 1
+2025-03-18 23:25:12,745 [b',\x88Wk\x1cl>">R\xe6\xaa\x93\x0e\x9aF', b',\x88Wk\x1cl>">R\xe6\xaa\x93\x0e\x9aF']
+2025-03-18 23:25:12,745 [b'wQ^\xaf\x96s\xf48\x1eVKX\xfd\x0e7\xc2', b'wQ^\xaf\x96s\xf48\x1eVKX\xfd\x0e7\xc2']

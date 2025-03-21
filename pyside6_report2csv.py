@@ -1,25 +1,14 @@
-import uuid
-import json
 import logging
-import os
-import re
-import time
 import pandas as pd
 from io import BytesIO
 import msoffcrypto
 import xlrd
 from pathlib import Path
+from sqlalchemy import create_engine
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QApplication, QWidget, QFileDialog, QTableWidgetItem
 from PySide6.QtSql import QSqlDatabase, QSqlQuery
-from PySide6.QtCore import (
-    QObject,
-    QDateTime,
-    Signal,
-    Slot,
-    QRunnable,
-    QThreadPool,
-)
+from PySide6.QtCore import QObject, QDateTime, Signal, Slot, QRunnable, QThreadPool
 from PySide6.QtUiTools import QUiLoader
 
 logging.basicConfig(
@@ -45,7 +34,7 @@ class Worker(QRunnable):
         self.file = file
         self.n = n
         self.signals = Signals()
-        self.setAutoDelete(True)  # 确保任务完成后自动清理
+        self.engine = create_engine("sqlite:///db/database.db")
 
     @Slot()
     def run(self):
@@ -91,6 +80,7 @@ class Worker(QRunnable):
                     "零件3",
                     "零件4",
                 ]
+                combined_df.insert(0, "零件号", number)
                 combined_df.dropna(subset=["编号"], inplace=True)
 
             output_dir = Path("output")
@@ -98,6 +88,7 @@ class Worker(QRunnable):
             combined_df.to_csv(
                 output_dir / f"{title}.csv", index=False, encoding="utf-8-sig"
             )
+            combined_df.to_sql(name='ET0', con=self.engine, if_exists='append')
             return combined_df, number, title, icmd, icmc, category
         except Exception as e:
             logging.error(f"Error processing 88 card: {str(e)}")
@@ -157,6 +148,7 @@ class Worker(QRunnable):
             "零件3",
             "零件4",
         ]
+        combined_df.insert(0, "零件号", number)
         combined_df.dropna(subset=["编号"], inplace=True)
 
         output_dir = Path("output")
@@ -164,150 +156,8 @@ class Worker(QRunnable):
         combined_df.to_csv(
             output_dir / f"{title}.csv", index=False, encoding="utf-8-sig"
         )
+        combined_df.to_sql(name='ET0', con=self.engine, if_exists='append')
         return combined_df, number, title, icmd, icmc, category
-
-
-class DatabaseWorker(QRunnable):
-    def __init__(self, df, title, category, db_manager):
-        super().__init__()
-        self.df = df
-        self.title = title
-        self.category = category
-        self.db_manager = db_manager
-        self.setAutoDelete(True)
-        self.signals = Signals()
-
-    @Slot()
-    def run(self):
-        try:
-            with self.db_manager as mgr:
-                mgr.save_measurements(self.df, self.title, self.category)
-                logging.info(f"数据保存成功: {self.title}")
-        except Exception as e:
-            logging.error(f"数据库保存失败: {str(e)}")
-            self.signals.error.emit(str(e))
-        self.setAutoDelete(True)
-
-
-class DatabaseManager:
-    def __init__(self, db_name=".\db\data.db"):
-        self.db_name = str(Path(db_name).absolute())
-        self.db = None
-        self.connection_name = None
-        print(self.db_name)
-
-    def __enter__(self):
-        self.connection_name = f"conn_{os.getpid()}_{uuid.uuid4().hex}"
-        self.db = QSqlDatabase.addDatabase("QSQLITE", self.connection_name)
-        self.db.setDatabaseName(self.db_name)
-
-        retries = 3
-        for attempt in range(retries):
-            if self.db.open():
-                logging.info(f"Database connected: {self.db_name}")
-                self._create_table()
-                return self
-            logging.warning(
-                f"Connection failed (attempt {attempt+1}): {self.db.lastError().text()}"
-            )
-            time.sleep(0.5)
-        raise RuntimeError(f"Database connection failed: {self.db.lastError().text()}")
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        try:
-            if self.db.isOpen():
-                if exc_type is None:
-                    self.db.commit()
-                else:
-                    self.db.rollback()
-                self.db.close()
-        finally:
-            if self.connection_name:
-                QSqlDatabase.removeDatabase(self.connection_name)
-            self.db = None
-
-    def _create_table(self):
-        query = QSqlQuery(self.db)
-        query.exec(
-            """
-            CREATE TABLE IF NOT EXISTS measurements (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                category TEXT,
-                type TEXT,
-                part_number TEXT,
-                sequence INTEGER,
-                upper_tolerance REAL,
-                lower_tolerance REAL,
-                part1 TEXT,
-                part2 TEXT,
-                part3 TEXT,
-                part4 TEXT,
-                file_name TEXT
-            )
-        """
-        )
-
-    def save_measurements(self, df, title, category):
-        query = QSqlQuery(self.db)
-        query.prepare(
-            """
-            INSERT INTO measurements (
-                category, type, part_number, sequence,
-                upper_tolerance, lower_tolerance,
-                part1, part2, part3, part4, file_name
-            ) VALUES (
-                :category, :type, :part_number, :sequence,
-                :upper_tolerance, :lower_tolerance,
-                :part1, :part2, :part3, :part4, :file_name
-            )
-        """
-        )
-        self.db.transaction()
-        try:
-            for _, row in df.iterrows():
-                self._bind_query_values(query, row, title, category)
-                if not query.exec():
-                    logging.error("Insert error: %s", query.lastError().text())
-            self.db.commit()
-        except Exception as e:
-            self.db.rollback()
-            logging.error("Transaction rollback: %s", str(e))
-        finally:
-            query.finish()
-
-    def _bind_query_values(self, query, row, title, category):
-        try:
-            query.bindValue(":category", str(category))
-            query.bindValue(":type", str(row.get("类型", "")))
-            query.bindValue(":part_number", str(row.get("编号", "")))
-
-            sequence = self._parse_sequence(row.get("序号"))
-            query.bindValue(":sequence", sequence)
-
-            for col in ["上公差", "下公差"]:
-                value = row.get(col)
-                query.bindValue(
-                    f":{col.lower()}", float(value) if pd.notna(value) else None
-                )
-
-            for part in ["零件1", "零件2", "零件3", "零件4"]:
-                value = str(row.get(part, "")).strip()
-                query.bindValue(f":{part.lower()}", value if value else None)
-
-            query.bindValue(":file_name", str(title))
-        except Exception as e:
-            logging.error("Value binding error: %s", str(e))
-            raise
-
-    def _parse_sequence(self, sequence):
-        try:
-            return (
-                int(sequence)
-                if pd.notna(sequence) and str(sequence).isdigit()
-                else None
-            )
-        except ValueError:
-            return None
 
 
 class Widget(QWidget):
@@ -319,7 +169,6 @@ class Widget(QWidget):
         self.setWindowTitle("报告转换器 0.0.1")
         self.setWindowIcon(QIcon("icon.png"))
         self.setup_slots()
-        self.db_manager = DatabaseManager()
         self.files = []
 
     def setup_slots(self):
@@ -328,6 +177,7 @@ class Widget(QWidget):
 
     def start_jobs(self):
         if self.files:
+            print(self.ui.comboBox.currentText())
             self.restart()
             pool = QThreadPool.globalInstance()
             for n, file in enumerate(self.files, start=1):
@@ -337,7 +187,6 @@ class Widget(QWidget):
                 worker = Worker(n, file)
                 worker.signals.completed.connect(self.complete)
                 worker.signals.started.connect(self.start)
-                # worker.signals.save_data.connect(self.save_to_database)
                 pool.start(worker)
 
     def restart(self):
