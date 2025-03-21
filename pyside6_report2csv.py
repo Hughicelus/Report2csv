@@ -4,12 +4,24 @@ from io import BytesIO
 import msoffcrypto
 import xlrd
 from pathlib import Path
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, Text
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QApplication, QWidget, QFileDialog, QTableWidgetItem
 from PySide6.QtSql import QSqlDatabase, QSqlQuery
-from PySide6.QtCore import QObject, QDateTime, Signal, Slot, QRunnable, QThreadPool
+from PySide6.QtCore import (
+    QObject,
+    QDateTime,
+    Signal,
+    Slot,
+    QRunnable,
+    QThreadPool,
+    Qt,
+    QMutex,
+    QMutexLocker,
+)
 from PySide6.QtUiTools import QUiLoader
+
+QApplication.setAttribute(Qt.AA_ShareOpenGLContexts)
 
 logging.basicConfig(
     filename="./log/report2csv.log",
@@ -18,6 +30,9 @@ logging.basicConfig(
     format="%(asctime)s %(message)s",
     level=logging.DEBUG,
 )
+
+
+DATABASE_URL = "sqlite:///db/database.db"
 
 
 class Signals(QObject):
@@ -34,25 +49,27 @@ class Worker(QRunnable):
         self.file = file
         self.n = n
         self.signals = Signals()
-        self.engine = create_engine("sqlite:///db/database.db")
+        self.engine = create_engine(DATABASE_URL)
+        self.mutex = QMutex()
 
     @Slot()
     def run(self):
-        try:
-            self.signals.started.emit(self.n)
-            if "-88" in self.file:
-                result = self.process_88_card()
-            elif "F32" in self.file:
-                result = self.process_32_card()
-            else:
-                raise ValueError("Unsupported file type")
+        with QMutexLocker(self.mutex):
+            try:
+                self.signals.started.emit(self.n)
+                if "-88" in self.file:
+                    result = self.process_88_card()
+                elif "F32" in self.file:
+                    result = self.process_32_card()
+                else:
+                    raise ValueError("Unsupported file type")
 
-            combined_df, number, title, icmd, icmc, category = result
-            msg = (self.n, self.file, number, title, icmd, icmc, category)
-            self.signals.completed.emit(msg)
-            self.signals.save_data.emit(combined_df, title, category)
-        except Exception as e:
-            logging.error(f"Error processing {self.file}: {str(e)}")
+                combined_df, number, title, icmd, icmc, category = result
+                msg = (self.n, self.file, number, title, icmd, icmc, category)
+                self.signals.completed.emit(msg)
+                self.signals.save_data.emit(combined_df, title, category)
+            except Exception as e:
+                logging.error(f"Error processing {self.file}: {str(e)}")
 
     def process_88_card(self):
         try:
@@ -81,6 +98,7 @@ class Worker(QRunnable):
                     "零件4",
                 ]
                 combined_df.insert(0, "零件号", number)
+                combined_df.insert(1, "零件名", title)
                 combined_df.dropna(subset=["编号"], inplace=True)
 
             output_dir = Path("output")
@@ -88,7 +106,10 @@ class Worker(QRunnable):
             combined_df.to_csv(
                 output_dir / f"{title}.csv", index=False, encoding="utf-8-sig"
             )
-            combined_df.to_sql(name='ET0', con=self.engine, if_exists='append')
+            with self.engine.connect() as conn:
+                combined_df.to_sql(
+                    name="ET0", con=conn, if_exists="append", dtype={"类型": Text}
+                )
             return combined_df, number, title, icmd, icmc, category
         except Exception as e:
             logging.error(f"Error processing 88 card: {str(e)}")
@@ -149,6 +170,7 @@ class Worker(QRunnable):
             "零件4",
         ]
         combined_df.insert(0, "零件号", number)
+        combined_df.insert(1, "零件名", title)
         combined_df.dropna(subset=["编号"], inplace=True)
 
         output_dir = Path("output")
@@ -156,7 +178,10 @@ class Worker(QRunnable):
         combined_df.to_csv(
             output_dir / f"{title}.csv", index=False, encoding="utf-8-sig"
         )
-        combined_df.to_sql(name='ET0', con=self.engine, if_exists='append')
+        with self.engine.connect() as conn:
+            combined_df.to_sql(
+                name="ET0", con=conn, if_exists="append", dtype={"类型": Text}
+            )
         return combined_df, number, title, icmd, icmc, category
 
 
@@ -174,6 +199,7 @@ class Widget(QWidget):
     def setup_slots(self):
         self.ui.pushButton.clicked.connect(self.get_files)
         self.ui.pushButton_2.clicked.connect(self.start_jobs)
+        self.ui.pushButton_14.clicked.connect(self.clear_db)
 
     def start_jobs(self):
         if self.files:
@@ -219,12 +245,14 @@ class Widget(QWidget):
             self.ui.pushButton_2.setEnabled(True)
             self.ui.pushButton_2.setText("开始")
 
-    def save_to_database(self, df, title, category):
-        worker = DatabaseWorker(df, title, category, self.db_manager)
-        worker.signals.error.connect(
-            lambda err: self.ui.listWidget.addItem(f"数据库错误: {err}")
-        )
-        QThreadPool.globalInstance().start(worker)
+    def clear_db(self):
+        db = QSqlDatabase.addDatabase("QSQLITE")
+        db.setDatabaseName("db/database.db")
+        if db.open():
+            query = QSqlQuery(db)
+            # query.exec("DROP TABLE IF EXISTS ET0")
+            query.exec("DELETE FROM ET0")
+            query.exec("DELETE FROM sqlite_sequence WHERE name='ETO'")
 
     def get_files(self):
         self.files, _ = QFileDialog.getOpenFileNames(
