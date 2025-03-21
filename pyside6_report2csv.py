@@ -220,6 +220,8 @@ class Widget(QWidget):
         self.completed_jobs = []
         self.ui.pushButton_2.setEnabled(False)
         self.ui.pushButton_2.setText("运行中")
+        self.ui.pushButton_2.setStyleSheet("background-color: red;color: white")
+
         self.ui.tableWidget.setRowCount(0)  # 清空表格
 
     def start(self, n):
@@ -239,10 +241,12 @@ class Widget(QWidget):
         self.ui.tableWidget.setItem(row, 3, QTableWidgetItem(f"{icmc:.2%}"))
         self.ui.tableWidget.setItem(row, 4, QTableWidgetItem(category))
         self.ui.tableWidget.resizeColumnsToContents()
+        self.ui.tableWidget.scrollToBottom()
 
         self.ui.progressBar.setValue(len(self.completed_jobs))
         if len(self.completed_jobs) == len(self.files):
             self.ui.pushButton_2.setEnabled(True)
+            self.ui.pushButton_2.setStyleSheet("background-color: rgb(0, 170, 0); color: white")
             self.ui.pushButton_2.setText("开始")
 
     def clear_db(self):
