@@ -38,9 +38,7 @@ DATABASE_URL = "sqlite:///db/database.db"
 class Signals(QObject):
     started = Signal(int)
     completed = Signal(tuple)
-    save_data = Signal(pd.DataFrame, str, str)
     error = Signal(str)
-    save_data = Signal(pd.DataFrame, str, str)
 
 
 class Worker(QRunnable):
@@ -67,7 +65,6 @@ class Worker(QRunnable):
                 combined_df, number, title, icmd, icmc, category = result
                 msg = (self.n, self.file, number, title, icmd, icmc, category)
                 self.signals.completed.emit(msg)
-                self.signals.save_data.emit(combined_df, title, category)
             except Exception as e:
                 logging.error(f"Error processing {self.file}: {str(e)}")
 
