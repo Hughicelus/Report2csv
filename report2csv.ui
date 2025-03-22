@@ -284,8 +284,15 @@ color: rgb(255, 255, 255);</string>
           </item>
           <item row="2" column="0">
            <widget class="QPushButton" name="pushButton_5">
+            <property name="font">
+             <font>
+              <family>Microsoft YaHei</family>
+              <bold>true</bold>
+             </font>
+            </property>
             <property name="styleSheet">
-             <string notr="true"/>
+             <string notr="true">background-color: rgb(255, 0, 0);
+color: rgb(255, 255, 255);</string>
             </property>
             <property name="text">
              <string>删除数据库</string>

@@ -35,6 +35,7 @@ logging.basicConfig(
 DATABASE_URL = "sqlite:///db/database.db"
 
 
+
 class Signals(QObject):
     started = Signal(int)
     completed = Signal(tuple)
@@ -185,18 +186,28 @@ class Worker(QRunnable):
 class Widget(QWidget):
     def __init__(self):
         super().__init__()
+        self.setup_ui()
+        self.setup_dir()
+        self.setup_slot()
+        self.files = []
+
+    def setup_ui(self):
         ui_file = Path(__file__).parent / "report2csv.ui"
         loader = QUiLoader()
         self.ui = loader.load(ui_file, self)
         self.setWindowTitle("报告转换器 0.0.1")
         self.setWindowIcon(QIcon("icon.png"))
-        self.setup_slots()
-        self.files = []
 
-    def setup_slots(self):
+    def setup_dir(self):
+        db_dir = Path("output")
+        db_dir.mkdir(exist_ok=True)
+        log_dir = Path("log")  
+        log_dir.mkdir(exist_ok=True)
+
+    def setup_slot(self):
         self.ui.pushButton.clicked.connect(self.get_files)
         self.ui.pushButton_2.clicked.connect(self.start_jobs)
-        self.ui.pushButton_14.clicked.connect(self.clear_db)
+        self.ui.pushButton_5.clicked.connect(self.clear_db)
 
     def start_jobs(self):
         if self.files:
@@ -243,7 +254,9 @@ class Widget(QWidget):
         self.ui.progressBar.setValue(len(self.completed_jobs))
         if len(self.completed_jobs) == len(self.files):
             self.ui.pushButton_2.setEnabled(True)
-            self.ui.pushButton_2.setStyleSheet("background-color: rgb(0, 170, 0); color: white")
+            self.ui.pushButton_2.setStyleSheet(
+                "background-color: rgb(0, 170, 0); color: white"
+            )
             self.ui.pushButton_2.setText("开始")
 
     def clear_db(self):
