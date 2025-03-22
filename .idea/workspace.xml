@@ -1,21 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="6bf9b2dd-9251-45fd-9baa-3ae42fafdb27" name="更改" comment="">
-      <change beforePath="$PROJECT_DIR$/db/database.db" beforeDir="false" afterPath="$PROJECT_DIR$/db/database.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/report2csv.log" beforeDir="false" afterPath="$PROJECT_DIR$/log/report2csv.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/output/右前门导轨总成.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/output/右前门防侧撞杆总成.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/output/右后门导轨总成.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/output/右后门防侧撞杆总成.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/output/天窗顶盖.csv" beforeDir="false" afterPath="$PROJECT_DIR$/output/天窗顶盖.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/output/左前门导轨总成.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/output/左前门防侧撞杆总成.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/output/左后门导轨总成.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/output/左后门防侧撞杆总成.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/output/顶盖.csv" beforeDir="false" afterPath="$PROJECT_DIR$/output/顶盖.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyside6_report2csv.py" beforeDir="false" afterPath="$PROJECT_DIR$/pyside6_report2csv.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/report2csv.ui" beforeDir="false" afterPath="$PROJECT_DIR$/report2csv.ui" afterDir="false" />
+    <list default="true" id="6bf9b2dd-9251-45fd-9baa-3ae42fafdb27" name="更改" comment="空提交">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,6 +30,10 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "last_opened_file_path": "D:/PycharmProjects/Report2csv",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -51,7 +46,16 @@
       <option name="presentableId" value="Default" />
       <updated>1742556528183</updated>
       <workItem from="1742556529431" duration="689000" />
+      <workItem from="1742627321244" duration="371000" />
     </task>
+    <task id="LOCAL-00001" summary="空提交">
+      <created>1742627545055</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1742627545055</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -67,5 +71,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="空提交" />
+    <option name="LAST_COMMIT_MESSAGE" value="空提交" />
   </component>
 </project>
