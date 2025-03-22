@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6bf9b2dd-9251-45fd-9baa-3ae42fafdb27" name="更改" comment="空提交">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,6 +60,7 @@
       <workItem from="1742556529431" duration="689000" />
       <workItem from="1742627321244" duration="581000" />
       <workItem from="1742629024019" duration="179000" />
+      <workItem from="1742633178960" duration="68000" />
     </task>
     <task id="LOCAL-00001" summary="空提交">
       <created>1742627545055</created>

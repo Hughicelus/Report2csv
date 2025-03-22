@@ -33,6 +33,7 @@ logging.basicConfig(
 
 
 DATABASE_URL = "sqlite:///db/database.db"
+mutex = QMutex()
 
 
 
@@ -43,17 +44,17 @@ class Signals(QObject):
 
 
 class Worker(QRunnable):
-    def __init__(self, n, file):
+    def __init__(self, n, file, stage):
         super().__init__()
-        self.file = file
         self.n = n
+        self.file = file
+        self.stage = stage
         self.signals = Signals()
         self.engine = create_engine(DATABASE_URL)
-        self.mutex = QMutex()
 
     @Slot()
     def run(self):
-        with QMutexLocker(self.mutex):
+        with QMutexLocker(mutex):
             try:
                 self.signals.started.emit(self.n)
                 if "-88" in self.file:
@@ -68,6 +69,7 @@ class Worker(QRunnable):
                 self.signals.completed.emit(msg)
             except Exception as e:
                 logging.error(f"Error processing {self.file}: {str(e)}")
+
 
     def process_88_card(self):
         try:
@@ -97,6 +99,7 @@ class Worker(QRunnable):
                 ]
                 combined_df.insert(0, "零件号", number)
                 combined_df.insert(1, "零件名", title)
+                combined_df.insert(2, "阶段", self.stage)
                 combined_df.dropna(subset=["编号"], inplace=True)
 
             output_dir = Path("output")
@@ -106,7 +109,7 @@ class Worker(QRunnable):
             )
             with self.engine.connect() as conn:
                 combined_df.to_sql(
-                    name="ET0", con=conn, if_exists="append", dtype={"类型": Text}
+                    name=self.stage, con=conn, if_exists="append", dtype={"类型": Text}
                 )
             return combined_df, number, title, icmd, icmc, category
         except Exception as e:
@@ -169,6 +172,7 @@ class Worker(QRunnable):
         ]
         combined_df.insert(0, "零件号", number)
         combined_df.insert(1, "零件名", title)
+        combined_df.insert(2, "阶段", self.stage)
         combined_df.dropna(subset=["编号"], inplace=True)
 
         output_dir = Path("output")
@@ -178,7 +182,7 @@ class Worker(QRunnable):
         )
         with self.engine.connect() as conn:
             combined_df.to_sql(
-                name="ET0", con=conn, if_exists="append", dtype={"类型": Text}
+                name=self.stage, con=conn, if_exists="append", dtype={"类型": Text}
             )
         return combined_df, number, title, icmd, icmc, category
 
@@ -189,7 +193,6 @@ class Widget(QWidget):
         self.setup_ui()
         self.setup_dir()
         self.setup_slot()
-        self.files = []
 
     def setup_ui(self):
         ui_file = Path(__file__).parent / "report2csv.ui"
@@ -201,24 +204,26 @@ class Widget(QWidget):
     def setup_dir(self):
         db_dir = Path("output")
         db_dir.mkdir(exist_ok=True)
-        log_dir = Path("log")  
+        log_dir = Path("log")
         log_dir.mkdir(exist_ok=True)
+        self.files = []
 
     def setup_slot(self):
         self.ui.pushButton.clicked.connect(self.get_files)
         self.ui.pushButton_2.clicked.connect(self.start_jobs)
         self.ui.pushButton_5.clicked.connect(self.clear_db)
+        self.ui.pushButton_6.clicked.connect(self.clear_log)
 
     def start_jobs(self):
         if self.files:
-            print(self.ui.comboBox.currentText())
+            self.stage = self.ui.comboBox.currentText()
             self.restart()
             pool = QThreadPool.globalInstance()
             for n, file in enumerate(self.files, start=1):
                 self.ui.textEdit.append(
                     f'{QDateTime.currentDateTime().toString("yyyy-MM-dd hh:mm:ss")}, {file}'
                 )
-                worker = Worker(n, file)
+                worker = Worker(n, file, self.stage)
                 worker.signals.completed.connect(self.complete)
                 worker.signals.started.connect(self.start)
                 pool.start(worker)
@@ -248,6 +253,7 @@ class Widget(QWidget):
         self.ui.tableWidget.setItem(row, 2, QTableWidgetItem(f"{icmd:.2%}"))
         self.ui.tableWidget.setItem(row, 3, QTableWidgetItem(f"{icmc:.2%}"))
         self.ui.tableWidget.setItem(row, 4, QTableWidgetItem(category))
+        self.ui.tableWidget.setItem(row, 5, QTableWidgetItem(self.stage))
         self.ui.tableWidget.resizeColumnsToContents()
         self.ui.tableWidget.scrollToBottom()
 
@@ -268,11 +274,15 @@ class Widget(QWidget):
             query.exec("DELETE FROM ET0")
             query.exec("DELETE FROM sqlite_sequence WHERE name='ETO'")
 
+    def clear_log(self):
+        with open("log/report2csv.log", "w") as f:
+            f.write("")
+
     def get_files(self):
         self.files, _ = QFileDialog.getOpenFileNames(
             self,
             "打开文件",
-            r"E:\Project\S32\06-零件报告\MDL\外制\敏实",
+            r"E:\Project\S32\06-零件报告\MDL\外制\东实",
             "Excel文件 (*.xls*)",
         )
         if self.files:

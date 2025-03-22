@@ -26,7 +26,7 @@
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -57,9 +57,6 @@ color: rgb(255, 255, 255);</string>
          <property name="font">
           <font>
            <family>Microsoft YaHei</family>
-           <pointsize>9</pointsize>
-           <italic>false</italic>
-           <bold>false</bold>
           </font>
          </property>
          <property name="styleSheet">
@@ -115,6 +112,11 @@ color: rgb(255, 255, 255);</string>
            </font>
           </property>
          </column>
+         <column>
+          <property name="text">
+           <string>阶段</string>
+          </property>
+         </column>
         </widget>
        </item>
        <item row="0" column="2">
@@ -158,6 +160,11 @@ color: rgb(255, 255, 255);</string>
          <item>
           <property name="text">
            <string>PT2</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>MDL</string>
           </property>
          </item>
          <item>
@@ -295,7 +302,7 @@ color: rgb(255, 255, 255);</string>
 color: rgb(255, 255, 255);</string>
             </property>
             <property name="text">
-             <string>删除数据库</string>
+             <string>清空数据库</string>
             </property>
            </widget>
           </item>
@@ -308,7 +315,7 @@ color: rgb(255, 255, 255);</string>
              <string notr="true"/>
             </property>
             <property name="text">
-             <string>新建数据表</string>
+             <string>清空日志</string>
             </property>
            </widget>
           </item>
