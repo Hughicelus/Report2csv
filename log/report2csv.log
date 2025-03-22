@@ -1,112 +1,72 @@
-2025-03-18 23:17:54,830 Error processing 88 card: (sqlite3.OperationalError) table "ET0" already exists
-[SQL: 
-CREATE TABLE "ET0" (
-	"index" BIGINT, 
-	"零件号" TEXT, 
-	"类型" TEXT, 
-	"编号" TEXT, 
-	"序号" TEXT, 
-	"上公差" TEXT, 
-	"下公差" TEXT, 
-	"零件1" TEXT, 
-	"零件2" TEXT, 
-	"零件3" TEXT, 
-	"零件4" TEXT
-)
-
-]
-(Background on this error at: https://sqlalche.me/e/20/e3q8)
-2025-03-18 23:17:54,831 Error processing E:/Project/S32/06-零件报告/MDL/外制/敏实/S32-88-右前门导轨总成-K700212760-MDL-2025-02-25.xls: (sqlite3.OperationalError) table "ET0" already exists
-[SQL: 
-CREATE TABLE "ET0" (
-	"index" BIGINT, 
-	"零件号" TEXT, 
-	"类型" TEXT, 
-	"编号" TEXT, 
-	"序号" TEXT, 
-	"上公差" TEXT, 
-	"下公差" TEXT, 
-	"零件1" TEXT, 
-	"零件2" TEXT, 
-	"零件3" TEXT, 
-	"零件4" TEXT
-)
-
-]
-(Background on this error at: https://sqlalche.me/e/20/e3q8)
-2025-03-18 23:17:54,832 Error processing 88 card: (sqlite3.OperationalError) table "ET0" already exists
-[SQL: 
-CREATE TABLE "ET0" (
-	"index" BIGINT, 
-	"零件号" TEXT, 
-	"类型" TEXT, 
-	"编号" TEXT, 
-	"序号" TEXT, 
-	"上公差" TEXT, 
-	"下公差" TEXT, 
-	"零件1" TEXT, 
-	"零件2" TEXT, 
-	"零件3" TEXT, 
-	"零件4" TEXT
-)
-
-]
-(Background on this error at: https://sqlalche.me/e/20/e3q8)
-2025-03-18 23:17:54,833 Error processing E:/Project/S32/06-零件报告/MDL/外制/敏实/S32-88-右后门导轨总成-K700218860-MDL-2025-02-25.xls: (sqlite3.OperationalError) table "ET0" already exists
-[SQL: 
-CREATE TABLE "ET0" (
-	"index" BIGINT, 
-	"零件号" TEXT, 
-	"类型" TEXT, 
-	"编号" TEXT, 
-	"序号" TEXT, 
-	"上公差" TEXT, 
-	"下公差" TEXT, 
-	"零件1" TEXT, 
-	"零件2" TEXT, 
-	"零件3" TEXT, 
-	"零件4" TEXT
-)
-
-]
-(Background on this error at: https://sqlalche.me/e/20/e3q8)
-2025-03-18 23:17:54,835 Error processing 88 card: (sqlite3.OperationalError) table "ET0" already exists
-[SQL: 
-CREATE TABLE "ET0" (
-	"index" BIGINT, 
-	"零件号" TEXT, 
-	"类型" TEXT, 
-	"编号" TEXT, 
-	"序号" TEXT, 
-	"上公差" TEXT, 
-	"下公差" TEXT, 
-	"零件1" TEXT, 
-	"零件2" TEXT, 
-	"零件3" TEXT, 
-	"零件4" TEXT
-)
-
-]
-(Background on this error at: https://sqlalche.me/e/20/e3q8)
-2025-03-18 23:17:54,835 Error processing E:/Project/S32/06-零件报告/MDL/外制/敏实/S32-88-左前门导轨总成-K700210560 -MDL-2025-02-25.xls: (sqlite3.OperationalError) table "ET0" already exists
-[SQL: 
-CREATE TABLE "ET0" (
-	"index" BIGINT, 
-	"零件号" TEXT, 
-	"类型" TEXT, 
-	"编号" TEXT, 
-	"序号" TEXT, 
-	"上公差" TEXT, 
-	"下公差" TEXT, 
-	"零件1" TEXT, 
-	"零件2" TEXT, 
-	"零件3" TEXT, 
-	"零件4" TEXT
-)
-
-]
-(Background on this error at: https://sqlalche.me/e/20/e3q8)
-2025-03-18 23:25:12,673 Version: 1 1
-2025-03-18 23:25:12,687 Version: 1 1
-2025-03-18 23:25:12,745 [b',\x88Wk\x1cl>">R\xe6\xaa\x93\x0e\x9aF', b',\x88Wk\x1cl>">R\xe6\xaa\x93\x0e\x9aF']
-2025-03-18 23:25:12,745 [b'wQ^\xaf\x96s\xf48\x1eVKX\xfd\x0e7\xc2', b'wQ^\xaf\x96s\xf48\x1eVKX\xfd\x0e7\xc2']
+2025-03-20 21:41:35,420 Version: 1 1
+2025-03-20 21:41:35,472 [b'\x18|(\r?\xfb\xd8\xde\xbb\xc5),U\x9c\xd11', b'\x18|(\r?\xfb\xd8\xde\xbb\xc5),U\x9c\xd11']
+2025-03-20 21:41:37,656 Version: 1 1
+2025-03-20 21:41:37,656 [b"\x1c&n\xcb\x88\x03\xad'\xf7\xc0fx\xfc\xc6\xa7\x81", b"\x1c&n\xcb\x88\x03\xad'\xf7\xc0fx\xfc\xc6\xa7\x81"]
+2025-03-20 21:41:39,690 Version: 1 1
+2025-03-20 21:41:39,690 [b'\xcc\x8d5^\xc7\xe0\xba\x9d\xa1Y0\x91(\xa3yz', b'\xcc\x8d5^\xc7\xe0\xba\x9d\xa1Y0\x91(\xa3yz']
+2025-03-20 21:41:42,108 Version: 1 1
+2025-03-20 21:41:42,108 [b'wQ^\xaf\x96s\xf48\x1eVKX\xfd\x0e7\xc2', b'wQ^\xaf\x96s\xf48\x1eVKX\xfd\x0e7\xc2']
+2025-03-20 21:41:44,529 Version: 1 1
+2025-03-20 21:41:44,529 [b'\xe5D\x8d\xc1u\xeeK6\xeb\x9e\xf5\x82b)\t\xb7', b'\xe5D\x8d\xc1u\xeeK6\xeb\x9e\xf5\x82b)\t\xb7']
+2025-03-20 21:41:47,254 Version: 1 1
+2025-03-20 21:41:47,255 [b'H\x97\xed\xc1\x13^\x1c/\xb4j>"\xae\'\x0b\x0f', b'H\x97\xed\xc1\x13^\x1c/\xb4j>"\xae\'\x0b\x0f']
+2025-03-20 21:41:50,008 Version: 1 1
+2025-03-20 21:41:50,008 [b'\xa7\xdaCG\x85\x08\x05u\xc9\xadC\xde\xea"\x85\x02', b'\xa7\xdaCG\x85\x08\x05u\xc9\xadC\xde\xea"\x85\x02']
+2025-03-20 21:41:51,696 Version: 1 1
+2025-03-20 21:41:51,696 [b"\x19\xdc\xe1\xd4\xf0\xb8fQ\x04\xb6\xcc\xaa\x98\xdf'1", b"\x19\xdc\xe1\xd4\xf0\xb8fQ\x04\xb6\xcc\xaa\x98\xdf'1"]
+2025-03-20 21:41:53,121 Version: 1 1
+2025-03-20 21:41:53,121 [b'\xb6\xa6\xe2\xcah\x80\xa9\xfd\xd2\xaba\xbd\xf6\xab\xf5@', b'\xb6\xa6\xe2\xcah\x80\xa9\xfd\xd2\xaba\xbd\xf6\xab\xf5@']
+2025-03-20 21:41:58,448 Version: 1 1
+2025-03-20 21:41:58,448 [b'\xea\xdfp\xad\xa4JsU\xc4\xa3\xe0F{\xb1YH', b'\xea\xdfp\xad\xa4JsU\xc4\xa3\xe0F{\xb1YH']
+2025-03-20 21:42:03,642 Version: 1 1
+2025-03-20 21:42:03,642 [b',\x88Wk\x1cl>">R\xe6\xaa\x93\x0e\x9aF', b',\x88Wk\x1cl>">R\xe6\xaa\x93\x0e\x9aF']
+2025-03-20 21:42:06,400 Version: 1 1
+2025-03-20 21:42:06,401 [b"S\xa9N%~'\x97%Fq\xde+\xc4\xedn\xcb", b"S\xa9N%~'\x97%Fq\xde+\xc4\xedn\xcb"]
+2025-03-21 23:07:42,790 Version: 1 1
+2025-03-21 23:07:42,807 Version: 1 1
+2025-03-21 23:07:42,863 Version: 1 1
+2025-03-21 23:07:42,864 Version: 1 1
+2025-03-21 23:07:42,890 Version: 1 1
+2025-03-21 23:07:42,996 Version: 1 1
+2025-03-21 23:07:43,024 [b'\x18|(\r?\xfb\xd8\xde\xbb\xc5),U\x9c\xd11', b'\x18|(\r?\xfb\xd8\xde\xbb\xc5),U\x9c\xd11']
+2025-03-21 23:07:43,024 [b'wQ^\xaf\x96s\xf48\x1eVKX\xfd\x0e7\xc2', b'wQ^\xaf\x96s\xf48\x1eVKX\xfd\x0e7\xc2']
+2025-03-21 23:07:43,024 [b'\xcc\x8d5^\xc7\xe0\xba\x9d\xa1Y0\x91(\xa3yz', b'\xcc\x8d5^\xc7\xe0\xba\x9d\xa1Y0\x91(\xa3yz']
+2025-03-21 23:07:43,035 [b"S\xa9N%~'\x97%Fq\xde+\xc4\xedn\xcb", b"S\xa9N%~'\x97%Fq\xde+\xc4\xedn\xcb"]
+2025-03-21 23:07:43,035 [b"\x1c&n\xcb\x88\x03\xad'\xf7\xc0fx\xfc\xc6\xa7\x81", b"\x1c&n\xcb\x88\x03\xad'\xf7\xc0fx\xfc\xc6\xa7\x81"]
+2025-03-21 23:07:43,057 [b'\xe5D\x8d\xc1u\xeeK6\xeb\x9e\xf5\x82b)\t\xb7', b'\xe5D\x8d\xc1u\xeeK6\xeb\x9e\xf5\x82b)\t\xb7']
+2025-03-21 23:07:46,224 Version: 1 1
+2025-03-21 23:07:46,225 [b'H\x97\xed\xc1\x13^\x1c/\xb4j>"\xae\'\x0b\x0f', b'H\x97\xed\xc1\x13^\x1c/\xb4j>"\xae\'\x0b\x0f']
+2025-03-21 23:07:46,890 Version: 1 1
+2025-03-21 23:07:46,891 [b'\xa7\xdaCG\x85\x08\x05u\xc9\xadC\xde\xea"\x85\x02', b'\xa7\xdaCG\x85\x08\x05u\xc9\xadC\xde\xea"\x85\x02']
+2025-03-21 23:08:03,037 Version: 1 1
+2025-03-21 23:08:03,038 [b"\x19\xdc\xe1\xd4\xf0\xb8fQ\x04\xb6\xcc\xaa\x98\xdf'1", b"\x19\xdc\xe1\xd4\xf0\xb8fQ\x04\xb6\xcc\xaa\x98\xdf'1"]
+2025-03-21 23:08:06,427 Version: 1 1
+2025-03-21 23:08:06,428 [b'\xb6\xa6\xe2\xcah\x80\xa9\xfd\xd2\xaba\xbd\xf6\xab\xf5@', b'\xb6\xa6\xe2\xcah\x80\xa9\xfd\xd2\xaba\xbd\xf6\xab\xf5@']
+2025-03-21 23:08:07,821 Version: 1 1
+2025-03-21 23:08:07,822 [b'\xea\xdfp\xad\xa4JsU\xc4\xa3\xe0F{\xb1YH', b'\xea\xdfp\xad\xa4JsU\xc4\xa3\xe0F{\xb1YH']
+2025-03-21 23:08:12,349 Version: 1 1
+2025-03-21 23:08:12,349 [b',\x88Wk\x1cl>">R\xe6\xaa\x93\x0e\x9aF', b',\x88Wk\x1cl>">R\xe6\xaa\x93\x0e\x9aF']
+2025-03-21 23:10:35,626 Version: 1 1
+2025-03-21 23:10:35,644 Version: 1 1
+2025-03-21 23:10:35,710 Version: 1 1
+2025-03-21 23:10:35,710 Version: 1 1
+2025-03-21 23:10:35,783 Version: 1 1
+2025-03-21 23:10:35,853 Version: 1 1
+2025-03-21 23:10:35,858 [b'\xcc\x8d5^\xc7\xe0\xba\x9d\xa1Y0\x91(\xa3yz', b'\xcc\x8d5^\xc7\xe0\xba\x9d\xa1Y0\x91(\xa3yz']
+2025-03-21 23:10:35,858 [b"\x1c&n\xcb\x88\x03\xad'\xf7\xc0fx\xfc\xc6\xa7\x81", b"\x1c&n\xcb\x88\x03\xad'\xf7\xc0fx\xfc\xc6\xa7\x81"]
+2025-03-21 23:10:35,859 [b'wQ^\xaf\x96s\xf48\x1eVKX\xfd\x0e7\xc2', b'wQ^\xaf\x96s\xf48\x1eVKX\xfd\x0e7\xc2']
+2025-03-21 23:10:35,859 [b'\xe5D\x8d\xc1u\xeeK6\xeb\x9e\xf5\x82b)\t\xb7', b'\xe5D\x8d\xc1u\xeeK6\xeb\x9e\xf5\x82b)\t\xb7']
+2025-03-21 23:10:35,859 [b"S\xa9N%~'\x97%Fq\xde+\xc4\xedn\xcb", b"S\xa9N%~'\x97%Fq\xde+\xc4\xedn\xcb"]
+2025-03-21 23:10:35,870 [b'\x18|(\r?\xfb\xd8\xde\xbb\xc5),U\x9c\xd11', b'\x18|(\r?\xfb\xd8\xde\xbb\xc5),U\x9c\xd11']
+2025-03-21 23:10:39,088 Version: 1 1
+2025-03-21 23:10:39,081 Version: 1 1
+2025-03-21 23:10:39,089 [b'H\x97\xed\xc1\x13^\x1c/\xb4j>"\xae\'\x0b\x0f', b'H\x97\xed\xc1\x13^\x1c/\xb4j>"\xae\'\x0b\x0f']
+2025-03-21 23:10:39,089 [b'\xa7\xdaCG\x85\x08\x05u\xc9\xadC\xde\xea"\x85\x02', b'\xa7\xdaCG\x85\x08\x05u\xc9\xadC\xde\xea"\x85\x02']
+2025-03-21 23:10:53,006 Version: 1 1
+2025-03-21 23:10:53,006 [b"\x19\xdc\xe1\xd4\xf0\xb8fQ\x04\xb6\xcc\xaa\x98\xdf'1", b"\x19\xdc\xe1\xd4\xf0\xb8fQ\x04\xb6\xcc\xaa\x98\xdf'1"]
+2025-03-21 23:10:55,407 Version: 1 1
+2025-03-21 23:10:55,408 [b'\xb6\xa6\xe2\xcah\x80\xa9\xfd\xd2\xaba\xbd\xf6\xab\xf5@', b'\xb6\xa6\xe2\xcah\x80\xa9\xfd\xd2\xaba\xbd\xf6\xab\xf5@']
+2025-03-21 23:10:56,678 Version: 1 1
+2025-03-21 23:10:56,679 [b'\xea\xdfp\xad\xa4JsU\xc4\xa3\xe0F{\xb1YH', b'\xea\xdfp\xad\xa4JsU\xc4\xa3\xe0F{\xb1YH']
+2025-03-21 23:11:00,657 Version: 1 1
+2025-03-21 23:11:00,658 [b',\x88Wk\x1cl>">R\xe6\xaa\x93\x0e\x9aF', b',\x88Wk\x1cl>">R\xe6\xaa\x93\x0e\x9aF']
