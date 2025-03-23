@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>399</height>
+    <height>400</height>
    </rect>
   </property>
   <property name="font">
@@ -33,25 +33,6 @@
        <string>导入</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_2">
-       <item row="0" column="4">
-        <widget class="QPushButton" name="pushButton_2">
-         <property name="font">
-          <font>
-           <family>Microsoft YaHei</family>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(0, 170, 0);
-color: rgb(255, 255, 255);</string>
-         </property>
-         <property name="text">
-          <string>开始</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="3">
-        <widget class="QLineEdit" name="lineEdit"/>
-       </item>
        <item row="4" column="0" colspan="5">
         <widget class="QTableWidget" name="tableWidget">
          <property name="font">
@@ -84,6 +65,11 @@ color: rgb(255, 255, 255);</string>
          </column>
          <column>
           <property name="text">
+           <string>阶段</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
            <string>ICMD/ICM</string>
           </property>
           <property name="font">
@@ -112,11 +98,6 @@ color: rgb(255, 255, 255);</string>
            </font>
           </property>
          </column>
-         <column>
-          <property name="text">
-           <string>阶段</string>
-          </property>
-         </column>
         </widget>
        </item>
        <item row="0" column="2">
@@ -132,6 +113,22 @@ color: rgb(255, 255, 255);</string>
          </property>
          <property name="text">
           <string>导入报告</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="4">
+        <widget class="QPushButton" name="pushButton_2">
+         <property name="font">
+          <font>
+           <family>Microsoft YaHei</family>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(0, 170, 0);
+color: rgb(255, 255, 255);</string>
+         </property>
+         <property name="text">
+          <string>开始</string>
          </property>
         </widget>
        </item>
@@ -174,6 +171,45 @@ color: rgb(255, 255, 255);</string>
          </item>
         </widget>
        </item>
+       <item row="0" column="3">
+        <widget class="QLineEdit" name="lineEdit"/>
+       </item>
+       <item row="5" column="0" colspan="5">
+        <widget class="QProgressBar" name="progressBar">
+         <property name="value">
+          <number>0</number>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_4">
+      <attribute name="title">
+       <string>查看</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_6">
+       <item row="0" column="0">
+        <widget class="QPushButton" name="pushButton_9">
+         <property name="font">
+          <font>
+           <family>Microsoft YaHei</family>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(13, 110, 253);
+color: rgb(255, 255, 255);</string>
+         </property>
+         <property name="text">
+          <string>查看</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QTableView" name="tableView"/>
+       </item>
       </layout>
      </widget>
      <widget class="QWidget" name="tab_2">
@@ -181,8 +217,21 @@ color: rgb(255, 255, 255);</string>
        <string>导出</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_3">
-       <item row="0" column="1">
-        <widget class="QLineEdit" name="lineEdit_2"/>
+       <item row="0" column="2">
+        <widget class="QPushButton" name="pushButton_3">
+         <property name="font">
+          <font>
+           <family>Microsoft YaHei</family>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(0, 170, 0);
+color: rgb(255, 255, 255);</string>
+         </property>
+         <property name="text">
+          <string>导出</string>
+         </property>
+        </widget>
        </item>
        <item row="0" column="0">
         <widget class="QPushButton" name="pushButton_4">
@@ -200,27 +249,14 @@ color: rgb(255, 255, 255);</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="0" colspan="3">
-        <widget class="QListWidget" name="listWidget"/>
-       </item>
-       <item row="0" column="2">
-        <widget class="QPushButton" name="pushButton_3">
-         <property name="font">
-          <font>
-           <family>Microsoft YaHei</family>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(0, 170, 0);
-color: rgb(255, 255, 255);</string>
-         </property>
-         <property name="text">
-          <string>导出</string>
-         </property>
-        </widget>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="lineEdit_2"/>
        </item>
        <item row="2" column="0" colspan="3">
         <widget class="QTextEdit" name="textEdit"/>
+       </item>
+       <item row="1" column="0" colspan="3">
+        <widget class="QListWidget" name="listWidget"/>
        </item>
       </layout>
      </widget>
@@ -326,19 +362,7 @@ color: rgb(255, 255, 255);</string>
      </widget>
     </widget>
    </item>
-   <item row="1" column="0">
-    <widget class="QProgressBar" name="progressBar">
-     <property name="value">
-      <number>0</number>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
-     </property>
-    </widget>
-   </item>
   </layout>
-  <zorder>progressBar</zorder>
-  <zorder>tabWidget</zorder>
  </widget>
  <resources/>
  <connections/>

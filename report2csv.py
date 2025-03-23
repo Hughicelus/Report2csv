@@ -7,7 +7,7 @@ from pathlib import Path
 from sqlalchemy import create_engine, Text
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QApplication, QWidget, QFileDialog, QTableWidgetItem
-from PySide6.QtSql import QSqlDatabase, QSqlQuery
+from PySide6.QtSql import QSqlDatabase, QSqlQuery, QSqlQueryModel
 from PySide6.QtCore import (
     QObject,
     QDateTime,
@@ -26,7 +26,7 @@ QApplication.setAttribute(Qt.AA_ShareOpenGLContexts)
 logging.basicConfig(
     filename="./log/report2csv.log",
     filemode="a",
-    encoding="utf-8",
+    encoding="utf-8-sig",
     format="%(asctime)s %(message)s",
     level=logging.DEBUG,
 )
@@ -34,7 +34,6 @@ logging.basicConfig(
 
 DATABASE_URL = "sqlite:///db/database.db"
 mutex = QMutex()
-
 
 
 class Signals(QObject):
@@ -70,57 +69,68 @@ class Worker(QRunnable):
             except Exception as e:
                 logging.error(f"Error processing {self.file}: {str(e)}")
 
-
     def process_88_card(self):
         try:
             with pd.ExcelFile(self.file) as xls:
-                category = "88卡"
-                df = pd.read_excel(xls, sheet_name="88-SYNTH", header=None)
-                number = df.iloc[4:6, 5].dropna().values[0]
-                title = pd.read_excel(xls, sheet_name="88PRES", header=None).iloc[8, 6]
-                icmd = float(df.iloc[27, 3])  # 确保数值类型
-                icmc = float(df.iloc[27, 5])
-                dfs = [
-                    xls.parse(sheet).iloc[8:54, [15, 16, 17, 21, 22, 23, 24, 25, 26]]
-                    for sheet in xls.sheet_names
-                    if sheet.startswith("RES-")
-                ]
-                combined_df = pd.concat(dfs, ignore_index=True)
-                combined_df.columns = [
-                    "类型",
-                    "编号",
-                    "序号",
-                    "上公差",
-                    "下公差",
-                    "零件1",
-                    "零件2",
-                    "零件3",
-                    "零件4",
-                ]
-                combined_df.insert(0, "零件号", number)
-                combined_df.insert(1, "零件名", title)
-                combined_df.insert(2, "阶段", self.stage)
-                combined_df.dropna(subset=["编号"], inplace=True)
+                if "88PRES" in xls.sheet_names:
+                    category = "88卡"
+                    df = pd.read_excel(xls, sheet_name="88-SYNTH", header=None)
 
-            output_dir = Path("output")
-            output_dir.mkdir(exist_ok=True)
-            combined_df.to_csv(
-                output_dir / f"{title}.csv", index=False, encoding="utf-8-sig"
-            )
-            with self.engine.connect() as conn:
-                combined_df.to_sql(
-                    name=self.stage, con=conn, if_exists="append", dtype={"类型": Text}
-                )
-            return combined_df, number, title, icmd, icmc, category
+                    number = df.iloc[4:6, 5].dropna().values[0]
+                    title = pd.read_excel(xls, sheet_name="88PRES", header=None).iloc[
+                        8, 6
+                    ]
+                    icmd = float(df.iloc[27, 3])  # 确保数值类型
+                    icmc = float(df.iloc[27, 5])
+                    dfs = [
+                        xls.parse(sheet).iloc[
+                            8:54, [15, 16, 17, 21, 22, 23, 24, 25, 26]
+                        ]
+                        for sheet in xls.sheet_names
+                        if sheet.startswith("RES-")
+                    ]
+
+                    combined_df = pd.concat(dfs, ignore_index=True)
+                    combined_df.columns = [
+                        "类型",
+                        "编号",
+                        "点号",
+                        "上公差",
+                        "下公差",
+                        "零件1",
+                        "零件2",
+                        "零件3",
+                        "零件4",
+                    ]
+                    combined_df.insert(0, "序号", self.n)
+                    combined_df.insert(1, "零件号", number)
+                    combined_df.insert(2, "零件名", title)
+                    combined_df.insert(3, "阶段", self.stage)
+                    combined_df.dropna(subset=["编号"], inplace=True)
+
+                    output_dir = Path("output")
+                    output_dir.mkdir(exist_ok=True)
+                    combined_df.to_csv(
+                        output_dir / f"{title}.csv", index=False, encoding="utf-8-sig"
+                    )
+                    with self.engine.connect() as conn:
+                        combined_df.to_sql(
+                            name=self.stage,
+                            con=conn,
+                            if_exists="append",
+                        )
+                    return combined_df, number, title, icmd, icmc, category
+
         except Exception as e:
-            logging.error(f"Error processing 88 card: {str(e)}")
+            logging.error(f"88卡错误: {str(e)}")
             raise
 
     def process_32_card(self):
         category = "32卡"
         try:
             with pd.ExcelFile(self.file) as xls:
-                df = pd.read_excel(xls, sheet_name="1(32j)", header=None)
+                # df = pd.read_excel(xls, sheet_name="1(32j)", header=None)
+                df = xls.parse("1(32j)", header=None)
                 dfs = [
                     xls.parse(
                         sheet,
@@ -140,9 +150,10 @@ class Worker(QRunnable):
                     _file.load_key(password="VelvetSweatshop")
                     _file.decrypt(decrypted)
                     decrypted.seek(0)
-                    df = pd.read_excel(decrypted, header=None, sheet_name="1(32j)")
-                    decrypted.seek(0)
+                    # df = pd.read_excel(decrypted, header=None, sheet_name="1(32j)")
+                    # decrypted.seek(0)
                     with pd.ExcelFile(decrypted) as xls:
+                        df = xls.parse("1(32j)", header=None)
                         dfs = [
                             xls.parse(
                                 sheet,
@@ -162,7 +173,7 @@ class Worker(QRunnable):
         combined_df.columns = [
             "类型",
             "编号",
-            "序号",
+            "点号",
             "上公差",
             "下公差",
             "零件1",
@@ -170,9 +181,10 @@ class Worker(QRunnable):
             "零件3",
             "零件4",
         ]
-        combined_df.insert(0, "零件号", number)
-        combined_df.insert(1, "零件名", title)
-        combined_df.insert(2, "阶段", self.stage)
+        combined_df.insert(0, "序号", self.n)
+        combined_df.insert(1, "零件号", number)
+        combined_df.insert(2, "零件名", title)
+        combined_df.insert(3, "阶段", self.stage)
         combined_df.dropna(subset=["编号"], inplace=True)
 
         output_dir = Path("output")
@@ -181,9 +193,7 @@ class Worker(QRunnable):
             output_dir / f"{title}.csv", index=False, encoding="utf-8-sig"
         )
         with self.engine.connect() as conn:
-            combined_df.to_sql(
-                name=self.stage, con=conn, if_exists="append", dtype={"类型": Text}
-            )
+            combined_df.to_sql(name=self.stage, con=conn, if_exists="append")
         return combined_df, number, title, icmd, icmc, category
 
 
@@ -213,6 +223,7 @@ class Widget(QWidget):
         self.ui.pushButton_2.clicked.connect(self.start_jobs)
         self.ui.pushButton_5.clicked.connect(self.clear_db)
         self.ui.pushButton_6.clicked.connect(self.clear_log)
+        self.ui.pushButton_9.clicked.connect(self.model_table)
 
     def start_jobs(self):
         if self.files:
@@ -250,10 +261,10 @@ class Widget(QWidget):
         self.ui.tableWidget.insertRow(row)
         self.ui.tableWidget.setItem(row, 0, QTableWidgetItem(str(number)))
         self.ui.tableWidget.setItem(row, 1, QTableWidgetItem(title))
-        self.ui.tableWidget.setItem(row, 2, QTableWidgetItem(f"{icmd:.2%}"))
-        self.ui.tableWidget.setItem(row, 3, QTableWidgetItem(f"{icmc:.2%}"))
-        self.ui.tableWidget.setItem(row, 4, QTableWidgetItem(category))
-        self.ui.tableWidget.setItem(row, 5, QTableWidgetItem(self.stage))
+        self.ui.tableWidget.setItem(row, 2, QTableWidgetItem(self.stage))
+        self.ui.tableWidget.setItem(row, 3, QTableWidgetItem(f"{icmd:.2%}"))
+        self.ui.tableWidget.setItem(row, 4, QTableWidgetItem(f"{icmc:.2%}"))
+        self.ui.tableWidget.setItem(row, 5, QTableWidgetItem(category))
         self.ui.tableWidget.resizeColumnsToContents()
         self.ui.tableWidget.scrollToBottom()
 
@@ -271,8 +282,8 @@ class Widget(QWidget):
         if db.open():
             query = QSqlQuery(db)
             # query.exec("DROP TABLE IF EXISTS ET0")
-            query.exec("DELETE FROM ET0")
-            query.exec("DELETE FROM sqlite_sequence WHERE name='ETO'")
+            query.exec(f"DELETE FROM {self.stage}")
+            query.exec(f"DELETE FROM sqlite_sequence WHERE name={self.stage}")
 
     def clear_log(self):
         with open("log/report2csv.log", "w") as f:
@@ -287,6 +298,16 @@ class Widget(QWidget):
         )
         if self.files:
             self.ui.progressBar.setMaximum(len(self.files))
+
+    def model_table(self):
+        db = QSqlDatabase.addDatabase("QSQLITE")
+        db.setDatabaseName("db/database.db")
+        db.open()
+        self.stage = self.ui.comboBox.currentText()
+        self.total_model = QSqlQueryModel(self)
+        self.total_model.setQuery(f"select * from {self.stage}")
+        print(self.total_model)
+        self.ui.tableView.setModel(self.total_model)
 
 
 if __name__ == "__main__":
