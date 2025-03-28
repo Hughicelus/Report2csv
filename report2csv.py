@@ -6,7 +6,13 @@ import xlrd
 from pathlib import Path
 from sqlalchemy import create_engine, Text
 from PySide6.QtGui import QIcon
-from PySide6.QtWidgets import QApplication, QWidget, QFileDialog, QTableWidgetItem
+from PySide6.QtWidgets import (
+    QApplication,
+    QWidget,
+    QFileDialog,
+    QTableWidgetItem,
+    QHeaderView,
+)
 from PySide6.QtSql import QSqlDatabase, QSqlQuery, QSqlQueryModel
 from PySide6.QtCore import (
     QObject,
@@ -20,6 +26,10 @@ from PySide6.QtCore import (
     QMutexLocker,
 )
 from PySide6.QtUiTools import QUiLoader
+
+import config
+
+STAGE_LIST = config.STAGE_LIST
 
 QApplication.setAttribute(Qt.AA_ShareOpenGLContexts)
 
@@ -83,9 +93,13 @@ class Worker(QRunnable):
                     icmd = float(df.iloc[27, 3])  # 确保数值类型
                     icmc = float(df.iloc[27, 5])
                     dfs = [
-                        xls.parse(sheet).iloc[
-                            8:54, [15, 16, 17, 21, 22, 23, 24, 25, 26]
-                        ]
+                        xls.parse(
+                            sheet,
+                            header=None,
+                            usecols="P,Q,R,V,W,X,Y,Z,AA",
+                            skiprows=9,
+                            nrows=46,
+                        )
                         for sheet in xls.sheet_names
                         if sheet.startswith("RES-")
                     ]
@@ -102,7 +116,7 @@ class Worker(QRunnable):
                         "零件3",
                         "零件4",
                     ]
-                    combined_df.insert(0, "序号", self.n)
+                    combined_df.insert(0, "导入序号", self.n)
                     combined_df.insert(1, "零件号", number)
                     combined_df.insert(2, "零件名", title)
                     combined_df.insert(3, "阶段", self.stage)
@@ -181,7 +195,7 @@ class Worker(QRunnable):
             "零件3",
             "零件4",
         ]
-        combined_df.insert(0, "序号", self.n)
+        combined_df.insert(0, "导入序号", self.n)
         combined_df.insert(1, "零件号", number)
         combined_df.insert(2, "零件名", title)
         combined_df.insert(3, "阶段", self.stage)
@@ -205,17 +219,18 @@ class Widget(QWidget):
         self.setup_slot()
 
     def setup_ui(self):
-        ui_file = Path(__file__).parent / "report2csv.ui"
-        loader = QUiLoader()
-        self.ui = loader.load(ui_file, self)
-        self.setWindowTitle("报告转换器 0.0.1")
-        self.setWindowIcon(QIcon("icon.png"))
+        self.ui = QUiLoader().load("report2csv.ui")
+        self.ui.show()
 
     def setup_dir(self):
-        db_dir = Path("output")
+        db_dir = Path("db")
         db_dir.mkdir(exist_ok=True)
         log_dir = Path("log")
         log_dir.mkdir(exist_ok=True)
+        output_dir = Path("output")
+        output_dir.mkdir(exist_ok=True)
+        csv_dir = Path("csv")
+        csv_dir.mkdir(exist_ok=True)
         self.files = []
 
     def setup_slot(self):
@@ -224,6 +239,11 @@ class Widget(QWidget):
         self.ui.pushButton_5.clicked.connect(self.clear_db)
         self.ui.pushButton_6.clicked.connect(self.clear_log)
         self.ui.pushButton_9.clicked.connect(self.model_table)
+        self.ui.pushButton_10.clicked.connect(self.delete_db)
+        self.ui.pushButton_21.clicked.connect(self.get_folder)
+
+    def setup_confie(self):
+        self.ui.comboBox.addItems()   
 
     def start_jobs(self):
         if self.files:
@@ -265,6 +285,13 @@ class Widget(QWidget):
         self.ui.tableWidget.setItem(row, 3, QTableWidgetItem(f"{icmd:.2%}"))
         self.ui.tableWidget.setItem(row, 4, QTableWidgetItem(f"{icmc:.2%}"))
         self.ui.tableWidget.setItem(row, 5, QTableWidgetItem(category))
+        self.ui.tableWidget.setItem(
+            row,
+            6,
+            QTableWidgetItem(
+                QDateTime.currentDateTime().toString("yyyy-MM-dd hh:mm:ss")
+            ),
+        )
         self.ui.tableWidget.resizeColumnsToContents()
         self.ui.tableWidget.scrollToBottom()
 
@@ -281,13 +308,29 @@ class Widget(QWidget):
         db.setDatabaseName("db/database.db")
         if db.open():
             query = QSqlQuery(db)
-            # query.exec("DROP TABLE IF EXISTS ET0")
+            # query.exec("DROP TABLE IF EXISTS {self.stage}")
             query.exec(f"DELETE FROM {self.stage}")
             query.exec(f"DELETE FROM sqlite_sequence WHERE name={self.stage}")
+
+    def delete_db(self):
+        file_db = Path("db/database.db")
+        if file_db.exists():
+            file_db.unlink()
 
     def clear_log(self):
         with open("log/report2csv.log", "w") as f:
             f.write("")
+
+    def get_folder(self):
+        _folder = QFileDialog.getExistingDirectory(
+            self,
+            '打开文件夹',
+            r"E:\Project\S32\06-零件报告\MDL",
+
+        )
+        self.files= list(map(str, Path(_folder).rglob("*.xls*")))
+        if self.files:
+            self.ui.progressBar.setMaximum(len(self.files))
 
     def get_files(self):
         self.files, _ = QFileDialog.getOpenFileNames(
@@ -300,18 +343,21 @@ class Widget(QWidget):
             self.ui.progressBar.setMaximum(len(self.files))
 
     def model_table(self):
+        # db = QSqlDatabase.addDatabase("QSQLITE")
+        # db.setDatabaseName("db/database.db")
+        # db.open()
+        if QSqlDatabase.contains("qt_sql_default_connection"):
+            QSqlDatabase.removeDatabase("qt_sql_default_connection")
         db = QSqlDatabase.addDatabase("QSQLITE")
         db.setDatabaseName("db/database.db")
-        db.open()
-        self.stage = self.ui.comboBox.currentText()
-        self.total_model = QSqlQueryModel(self)
-        self.total_model.setQuery(f"select * from {self.stage}")
-        print(self.total_model)
-        self.ui.tableView.setModel(self.total_model)
+        if db.open():
+            self.stage = self.ui.comboBox.currentText()
+            self.total_model = QSqlQueryModel(self)
+            self.total_model.setQuery(f"select * from {self.stage}")
+            self.ui.tableView.setModel(self.total_model)
 
 
 if __name__ == "__main__":
     app = QApplication([])
     widget = Widget()
-    widget.show()
     app.exec()

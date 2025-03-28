@@ -10,6 +10,12 @@
     <height>400</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
   <property name="font">
    <font>
     <family>Microsoft YaHei</family>
@@ -20,20 +26,125 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>csv.png</normaloff>csv.png</iconset>
+    <normaloff>icon.ico</normaloff>icon.ico</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="currentIndex">
       <number>0</number>
      </property>
      <widget class="QWidget" name="tab">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <attribute name="title">
        <string>导入</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_2">
-       <item row="4" column="0" colspan="5">
+       <item row="5" column="0" colspan="6">
+        <widget class="QProgressBar" name="progressBar">
+         <property name="value">
+          <number>0</number>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="4">
+        <widget class="QLineEdit" name="lineEdit">
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="5">
+        <widget class="QPushButton" name="pushButton_2">
+         <property name="font">
+          <font>
+           <family>Microsoft YaHei</family>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(0, 170, 0);
+color: rgb(255, 255, 255);</string>
+         </property>
+         <property name="text">
+          <string>开始</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QComboBox" name="comboBox">
+         <item>
+          <property name="text">
+           <string>ET0</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>ET1</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>ET2</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>ET3</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>PT1</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>PT2</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>MDL</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>SOP</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QPushButton" name="pushButton">
+         <property name="font">
+          <font>
+           <family>Microsoft YaHei</family>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(13, 110, 253);
+color: rgb(255, 255, 255);</string>
+         </property>
+         <property name="text">
+          <string>导入报告</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0" colspan="6">
         <widget class="QTableWidget" name="tableWidget">
          <property name="font">
           <font>
@@ -98,10 +209,15 @@
            </font>
           </property>
          </column>
+         <column>
+          <property name="text">
+           <string>导入时间</string>
+          </property>
+         </column>
         </widget>
        </item>
-       <item row="0" column="2">
-        <widget class="QPushButton" name="pushButton">
+       <item row="0" column="3">
+        <widget class="QPushButton" name="pushButton_21">
          <property name="font">
           <font>
            <family>Microsoft YaHei</family>
@@ -112,75 +228,7 @@
 color: rgb(255, 255, 255);</string>
          </property>
          <property name="text">
-          <string>导入报告</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="4">
-        <widget class="QPushButton" name="pushButton_2">
-         <property name="font">
-          <font>
-           <family>Microsoft YaHei</family>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(0, 170, 0);
-color: rgb(255, 255, 255);</string>
-         </property>
-         <property name="text">
-          <string>开始</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QComboBox" name="comboBox">
-         <item>
-          <property name="text">
-           <string>ET0</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>ET1</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>ET2</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>PT1</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>PT2</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>MDL</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>SOP</string>
-          </property>
-         </item>
-        </widget>
-       </item>
-       <item row="0" column="3">
-        <widget class="QLineEdit" name="lineEdit"/>
-       </item>
-       <item row="5" column="0" colspan="5">
-        <widget class="QProgressBar" name="progressBar">
-         <property name="value">
-          <number>0</number>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignmentFlag::AlignCenter</set>
+          <string>导入路径</string>
          </property>
         </widget>
        </item>
@@ -301,7 +349,7 @@ color: rgb(255, 255, 255);</string>
              <string notr="true"/>
             </property>
             <property name="text">
-             <string>指定数据库路径</string>
+             <string>设置阶段名</string>
             </property>
            </widget>
           </item>
@@ -338,7 +386,7 @@ color: rgb(255, 255, 255);</string>
 color: rgb(255, 255, 255);</string>
             </property>
             <property name="text">
-             <string>清空数据库</string>
+             <string>清空数据表</string>
             </property>
            </widget>
           </item>
@@ -352,6 +400,23 @@ color: rgb(255, 255, 255);</string>
             </property>
             <property name="text">
              <string>清空日志</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QPushButton" name="pushButton_10">
+            <property name="font">
+             <font>
+              <family>Microsoft YaHei</family>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(176, 42, 55);
+color: rgb(255, 255, 255);</string>
+            </property>
+            <property name="text">
+             <string>删除数据库</string>
             </property>
            </widget>
           </item>
