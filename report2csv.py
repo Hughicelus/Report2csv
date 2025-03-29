@@ -30,6 +30,8 @@ from PySide6.QtUiTools import QUiLoader
 import config
 
 STAGE_LIST = config.STAGE_LIST
+DATABASE_URL = config.DATABASE_URL
+
 
 QApplication.setAttribute(Qt.AA_ShareOpenGLContexts)
 
@@ -42,7 +44,6 @@ logging.basicConfig(
 )
 
 
-DATABASE_URL = "sqlite:///db/database.db"
 mutex = QMutex()
 
 
@@ -73,8 +74,8 @@ class Worker(QRunnable):
                 else:
                     raise ValueError("Unsupported file type")
 
-                combined_df, number, title, icmd, icmc, category = result
-                msg = (self.n, self.file, number, title, icmd, icmc, category)
+                time, number, title, icmd, icmc, category = result
+                msg = (self.n, self.file, number, title, icmd, icmc, category, time)
                 self.signals.completed.emit(msg)
             except Exception as e:
                 logging.error(f"Error processing {self.file}: {str(e)}")
@@ -84,6 +85,9 @@ class Worker(QRunnable):
             with pd.ExcelFile(self.file) as xls:
                 if "88PRES" in xls.sheet_names:
                     category = "88卡"
+                    time = QDateTime.currentDateTime().toString(
+                        "yyyy-MM-dd hh:mm:ss zzz"
+                    )
                     df = pd.read_excel(xls, sheet_name="88-SYNTH", header=None)
 
                     number = df.iloc[4:6, 5].dropna().values[0]
@@ -106,26 +110,50 @@ class Worker(QRunnable):
 
                     combined_df = pd.concat(dfs, ignore_index=True)
                     combined_df.columns = [
-                        "类型",
-                        "编号",
-                        "点号",
-                        "上公差",
-                        "下公差",
-                        "零件1",
-                        "零件2",
-                        "零件3",
-                        "零件4",
+                        "category",
+                        "number",
+                        "code",
+                        "upper_tolerance",
+                        "lower_tolerance",
+                        "part1",
+                        "part2",
+                        "part3",
+                        "part4",
                     ]
-                    combined_df.insert(0, "导入序号", self.n)
-                    combined_df.insert(1, "零件号", number)
-                    combined_df.insert(2, "零件名", title)
-                    combined_df.insert(3, "阶段", self.stage)
-                    combined_df.dropna(subset=["编号"], inplace=True)
+                    combined_df.insert(0, "no", self.n)
+                    combined_df.insert(1, "part", number)
+                    combined_df.insert(2, "name", title)
+                    combined_df.insert(3, "stage", self.stage)
+                    combined_df.dropna(subset=["code"], inplace=True)
 
                     output_dir = Path("output")
                     output_dir.mkdir(exist_ok=True)
                     combined_df.to_csv(
                         output_dir / f"{title}.csv", index=False, encoding="utf-8-sig"
+                    )
+                    total_df = pd.DataFrame(
+                        [
+                            [
+                                number,
+                                title,
+                                self.stage,
+                                icmd,
+                                icmc,
+                                category,
+                                time,
+                                self.file,
+                            ]
+                        ],
+                        columns=[
+                            "number",
+                            "title",
+                            "category",
+                            "icmd",
+                            "icmc",
+                            "stage",
+                            "date",
+                            "file",
+                        ],
                     )
                     with self.engine.connect() as conn:
                         combined_df.to_sql(
@@ -133,7 +161,10 @@ class Worker(QRunnable):
                             con=conn,
                             if_exists="append",
                         )
-                    return combined_df, number, title, icmd, icmc, category
+                        total_df.to_sql(
+                            name="Total", con=conn, if_exists="append", index=False
+                        )
+                    return time, number, title, icmd, icmc, category
 
         except Exception as e:
             logging.error(f"88卡错误: {str(e)}")
@@ -141,9 +172,9 @@ class Worker(QRunnable):
 
     def process_32_card(self):
         category = "32卡"
+        time = QDateTime.currentDateTime().toString("yyyy-MM-dd hh:mm:ss zzz")
         try:
             with pd.ExcelFile(self.file) as xls:
-                # df = pd.read_excel(xls, sheet_name="1(32j)", header=None)
                 df = xls.parse("1(32j)", header=None)
                 dfs = [
                     xls.parse(
@@ -164,8 +195,6 @@ class Worker(QRunnable):
                     _file.load_key(password="VelvetSweatshop")
                     _file.decrypt(decrypted)
                     decrypted.seek(0)
-                    # df = pd.read_excel(decrypted, header=None, sheet_name="1(32j)")
-                    # decrypted.seek(0)
                     with pd.ExcelFile(decrypted) as xls:
                         df = xls.parse("1(32j)", header=None)
                         dfs = [
@@ -185,30 +214,55 @@ class Worker(QRunnable):
         icmc = float(df.iloc[22, 6])
         combined_df = pd.concat(dfs, ignore_index=True)
         combined_df.columns = [
-            "类型",
-            "编号",
-            "点号",
-            "上公差",
-            "下公差",
-            "零件1",
-            "零件2",
-            "零件3",
-            "零件4",
+            "category",
+            "number",
+            "code",
+            "upper_tolerance",
+            "lower_tolerance",
+            "part1",
+            "part2",
+            "part3",
+            "part4",
         ]
-        combined_df.insert(0, "导入序号", self.n)
-        combined_df.insert(1, "零件号", number)
-        combined_df.insert(2, "零件名", title)
-        combined_df.insert(3, "阶段", self.stage)
-        combined_df.dropna(subset=["编号"], inplace=True)
+        combined_df.insert(0, "no", self.n)
+        combined_df.insert(1, "part", number)
+        combined_df.insert(2, "name", title)
+        combined_df.insert(3, "stage", self.stage)
+        combined_df.dropna(subset=["code"], inplace=True)
 
         output_dir = Path("output")
         output_dir.mkdir(exist_ok=True)
         combined_df.to_csv(
             output_dir / f"{title}.csv", index=False, encoding="utf-8-sig"
         )
+        total_df = pd.DataFrame(
+            [
+                [
+                    number,
+                    title,
+                    self.stage,
+                    icmd,
+                    icmc,
+                    category,
+                    time,
+                    self.file,
+                ]
+            ],
+            columns=[
+                "number",
+                "title",
+                "category",
+                "icmd",
+                "icmc",
+                "stage",
+                "date",
+                "file",
+            ],
+        )
         with self.engine.connect() as conn:
             combined_df.to_sql(name=self.stage, con=conn, if_exists="append")
-        return combined_df, number, title, icmd, icmc, category
+            total_df.to_sql(name="Total", con=conn, if_exists="append", index=False)
+        return time, number, title, icmd, icmc, category
 
 
 class Widget(QWidget):
@@ -232,6 +286,7 @@ class Widget(QWidget):
         csv_dir = Path("csv")
         csv_dir.mkdir(exist_ok=True)
         self.files = []
+        self.stage = self.ui.comboBox.currentText()
 
     def setup_slot(self):
         self.ui.pushButton.clicked.connect(self.get_files)
@@ -241,9 +296,11 @@ class Widget(QWidget):
         self.ui.pushButton_9.clicked.connect(self.model_table)
         self.ui.pushButton_10.clicked.connect(self.delete_db)
         self.ui.pushButton_21.clicked.connect(self.get_folder)
+        self.ui.pushButton_11.clicked.connect(self.clear_total)
+        self.ui.pushButton_12.clicked.connect(self.model_total)
 
-    def setup_confie(self):
-        self.ui.comboBox.addItems()   
+    def setup_config(self):
+        self.ui.comboBox.addItems()
 
     def start_jobs(self):
         if self.files:
@@ -252,7 +309,7 @@ class Widget(QWidget):
             pool = QThreadPool.globalInstance()
             for n, file in enumerate(self.files, start=1):
                 self.ui.textEdit.append(
-                    f'{QDateTime.currentDateTime().toString("yyyy-MM-dd hh:mm:ss")}, {file}'
+                    f'{QDateTime.currentDateTime().toString("yyyy-MM-dd hh:mm:ss zzz")}, {file}'
                 )
                 worker = Worker(n, file, self.stage)
                 worker.signals.completed.connect(self.complete)
@@ -273,7 +330,7 @@ class Widget(QWidget):
         self.ui.lineEdit.setText(f"{n}/{len(self.files)}: {Path(self.files[n-1]).name}")
 
     def complete(self, msg):
-        n, file, number, title, icmd, icmc, category = msg
+        n, file, number, title, icmd, icmc, category, time = msg
         self.ui.listWidget.addItem(f"任务 #{n} 已完成")
         self.completed_jobs.append(n)
 
@@ -285,13 +342,8 @@ class Widget(QWidget):
         self.ui.tableWidget.setItem(row, 3, QTableWidgetItem(f"{icmd:.2%}"))
         self.ui.tableWidget.setItem(row, 4, QTableWidgetItem(f"{icmc:.2%}"))
         self.ui.tableWidget.setItem(row, 5, QTableWidgetItem(category))
-        self.ui.tableWidget.setItem(
-            row,
-            6,
-            QTableWidgetItem(
-                QDateTime.currentDateTime().toString("yyyy-MM-dd hh:mm:ss")
-            ),
-        )
+        self.ui.tableWidget.setItem(row, 6, QTableWidgetItem(time))
+        self.ui.tableWidget.setItem(row, 7, QTableWidgetItem(file))
         self.ui.tableWidget.resizeColumnsToContents()
         self.ui.tableWidget.scrollToBottom()
 
@@ -308,27 +360,38 @@ class Widget(QWidget):
         db.setDatabaseName("db/database.db")
         if db.open():
             query = QSqlQuery(db)
-            # query.exec("DROP TABLE IF EXISTS {self.stage}")
-            query.exec(f"DELETE FROM {self.stage}")
-            query.exec(f"DELETE FROM sqlite_sequence WHERE name={self.stage}")
+            query.exec(f"DROP TABLE IF EXISTS {self.stage}")
+            # query.exec(f"DELETE FROM {self.stage}")
+            # query.exec(f"DELETE FROM sqlite_sequence WHERE name={self.stage}")
+        self.ui.lineEdit_3.setText(f"{self.stage}表已清空")
+
+    def clear_total(self):
+        db = QSqlDatabase.addDatabase("QSQLITE")
+        db.setDatabaseName("db/database.db")
+        if db.open():
+            query = QSqlQuery(db)
+            query.exec("DROP TABLE IF EXISTS 'Total'")
+        self.ui.lineEdit_3.setText("总表已清空")
 
     def delete_db(self):
         file_db = Path("db/database.db")
         if file_db.exists():
             file_db.unlink()
+        self.ui.lineEdit_3.setText("数据库已删除")
+        # self.ui.lineEdit_3.setStyleSheet("color: red")
 
     def clear_log(self):
         with open("log/report2csv.log", "w") as f:
             f.write("")
+        self.ui.lineEdit_3.setText("日志已清空")
 
     def get_folder(self):
         _folder = QFileDialog.getExistingDirectory(
             self,
-            '打开文件夹',
+            "打开文件夹",
             r"E:\Project\S32\06-零件报告\MDL",
-
         )
-        self.files= list(map(str, Path(_folder).rglob("*.xls*")))
+        self.files = list(map(str, Path(_folder).rglob("*.xls*")))
         if self.files:
             self.ui.progressBar.setMaximum(len(self.files))
 
@@ -343,9 +406,17 @@ class Widget(QWidget):
             self.ui.progressBar.setMaximum(len(self.files))
 
     def model_table(self):
-        # db = QSqlDatabase.addDatabase("QSQLITE")
-        # db.setDatabaseName("db/database.db")
-        # db.open()
+        if QSqlDatabase.contains("qt_sql_default_connection"):
+            QSqlDatabase.removeDatabase("qt_sql_default_connection")
+        db = QSqlDatabase.addDatabase("QSQLITE")
+        db.setDatabaseName("db/database.db")
+        if db.open():
+            self.stage = self.ui.comboBox.currentText()
+            self.table_model = QSqlQueryModel(self)
+            self.table_model.setQuery(f"select * from {self.stage}")
+            self.ui.tableView.setModel(self.table_model)
+
+    def model_total(self):
         if QSqlDatabase.contains("qt_sql_default_connection"):
             QSqlDatabase.removeDatabase("qt_sql_default_connection")
         db = QSqlDatabase.addDatabase("QSQLITE")
@@ -353,8 +424,9 @@ class Widget(QWidget):
         if db.open():
             self.stage = self.ui.comboBox.currentText()
             self.total_model = QSqlQueryModel(self)
-            self.total_model.setQuery(f"select * from {self.stage}")
-            self.ui.tableView.setModel(self.total_model)
+            self.total_model.setQuery(f"select * from 'total'")
+            self.ui.tableView_2.setModel(self.total_model)
+            self.ui.tableView_2.resizeColumnsToContents()
 
 
 if __name__ == "__main__":

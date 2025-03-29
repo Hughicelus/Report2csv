@@ -214,6 +214,11 @@ color: rgb(255, 255, 255);</string>
            <string>导入时间</string>
           </property>
          </column>
+         <column>
+          <property name="text">
+           <string>文件</string>
+          </property>
+         </column>
         </widget>
        </item>
        <item row="0" column="3">
@@ -234,6 +239,32 @@ color: rgb(255, 255, 255);</string>
        </item>
       </layout>
      </widget>
+     <widget class="QWidget" name="tab_5">
+      <attribute name="title">
+       <string>汇总</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_8">
+       <item row="0" column="0">
+        <widget class="QPushButton" name="pushButton_12">
+         <property name="font">
+          <font>
+           <family>Microsoft YaHei</family>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(13, 110, 253);
+color: rgb(255, 255, 255);</string>
+         </property>
+         <property name="text">
+          <string>查看汇总表</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QTableView" name="tableView_2"/>
+       </item>
+      </layout>
+     </widget>
      <widget class="QWidget" name="tab_4">
       <attribute name="title">
        <string>查看</string>
@@ -251,7 +282,7 @@ color: rgb(255, 255, 255);</string>
 color: rgb(255, 255, 255);</string>
          </property>
          <property name="text">
-          <string>查看</string>
+          <string>查看阶段表</string>
          </property>
         </widget>
        </item>
@@ -362,6 +393,26 @@ color: rgb(255, 255, 255);</string>
           <string>删除数据表</string>
          </property>
          <layout class="QGridLayout" name="gridLayout_4">
+          <item row="1" column="0">
+           <widget class="QPushButton" name="pushButton_10">
+            <property name="font">
+             <font>
+              <family>Microsoft YaHei</family>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(255, 0, 255);
+color: rgb(255, 255, 255);</string>
+            </property>
+            <property name="text">
+             <string>删除数据库</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="0">
+           <widget class="QLineEdit" name="lineEdit_3"/>
+          </item>
           <item row="0" column="0">
            <widget class="QLabel" name="label_2">
             <property name="text">
@@ -373,7 +424,7 @@ color: rgb(255, 255, 255);</string>
             </property>
            </widget>
           </item>
-          <item row="2" column="0">
+          <item row="3" column="0">
            <widget class="QPushButton" name="pushButton_5">
             <property name="font">
              <font>
@@ -391,9 +442,6 @@ color: rgb(255, 255, 255);</string>
            </widget>
           </item>
           <item row="4" column="0">
-           <widget class="QLineEdit" name="lineEdit_3"/>
-          </item>
-          <item row="3" column="0">
            <widget class="QPushButton" name="pushButton_6">
             <property name="styleSheet">
              <string notr="true"/>
@@ -403,8 +451,8 @@ color: rgb(255, 255, 255);</string>
             </property>
            </widget>
           </item>
-          <item row="1" column="0">
-           <widget class="QPushButton" name="pushButton_10">
+          <item row="2" column="0">
+           <widget class="QPushButton" name="pushButton_11">
             <property name="font">
              <font>
               <family>Microsoft YaHei</family>
@@ -412,11 +460,11 @@ color: rgb(255, 255, 255);</string>
              </font>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color: rgb(176, 42, 55);
+             <string notr="true">background-color: rgb(255, 0, 0);
 color: rgb(255, 255, 255);</string>
             </property>
             <property name="text">
-             <string>删除数据库</string>
+             <string>清空汇总表</string>
             </property>
            </widget>
           </item>
