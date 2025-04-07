@@ -1,4 +1,5 @@
 import logging
+import subprocess
 import pandas as pd
 from io import BytesIO
 import msoffcrypto
@@ -67,7 +68,7 @@ class Worker(QRunnable):
         with QMutexLocker(mutex):
             try:
                 self.signals.started.emit(self.n)
-                if "-88" in self.file:
+                if "88" in self.file:
                     result = self.process_88_card()
                 elif "F32" in self.file:
                     result = self.process_32_card()
@@ -88,12 +89,11 @@ class Worker(QRunnable):
                     time = QDateTime.currentDateTime().toString(
                         "yyyy-MM-dd hh:mm:ss zzz"
                     )
-                    df = pd.read_excel(xls, sheet_name="88-SYNTH", header=None)
+                    df = xls.parse("88-SYNTH", header=None)
 
                     number = df.iloc[4:6, 5].dropna().values[0]
-                    title = pd.read_excel(xls, sheet_name="88PRES", header=None).iloc[
-                        8, 6
-                    ]
+                    title = xls.parse("88PRES", header=None).iloc[8, 6]
+
                     icmd = float(df.iloc[27, 3])  # 确保数值类型
                     icmc = float(df.iloc[27, 5])
                     dfs = [
@@ -126,10 +126,10 @@ class Worker(QRunnable):
                     combined_df.insert(3, "stage", self.stage)
                     combined_df.dropna(subset=["code"], inplace=True)
 
-                    output_dir = Path("output")
-                    output_dir.mkdir(exist_ok=True)
+                    # output_dir = Path("output")
+                    # output_dir.mkdir(exist_ok=True)
                     combined_df.to_csv(
-                        output_dir / f"{title}.csv", index=False, encoding="utf-8-sig"
+                        f"output/{title}.csv", index=False, encoding="utf-8-sig"
                     )
                     total_df = pd.DataFrame(
                         [
@@ -147,10 +147,10 @@ class Worker(QRunnable):
                         columns=[
                             "number",
                             "title",
-                            "category",
+                            "stage",
                             "icmd",
                             "icmc",
-                            "stage",
+                            "category",
                             "date",
                             "file",
                         ],
@@ -175,18 +175,19 @@ class Worker(QRunnable):
         time = QDateTime.currentDateTime().toString("yyyy-MM-dd hh:mm:ss zzz")
         try:
             with pd.ExcelFile(self.file) as xls:
-                df = xls.parse("1(32j)", header=None)
-                dfs = [
-                    xls.parse(
-                        sheet,
-                        header=None,
-                        usecols="X,AC,AE,AG,AH,AK,AL,AM,AN",
-                        skiprows=9,
-                        nrows=64,
-                    )
-                    for sheet in xls.sheet_names
-                    if sheet.endswith("(32i)")
-                ]
+                if "1(32j)" in xls.sheet_names:
+                    df = xls.parse("1(32j)", header=None)
+                    dfs = [
+                        xls.parse(
+                            sheet,
+                            header=None,
+                            usecols="X,AC,AE,AG,AH,AK,AL,AM,AN",
+                            skiprows=9,
+                            nrows=64,
+                        )
+                        for sheet in xls.sheet_names
+                        if sheet.endswith("(32i)")
+                    ]
         except xlrd.biffh.XLRDError:
             decrypted = BytesIO()
             with open(self.file, "rb") as f:
@@ -196,18 +197,23 @@ class Worker(QRunnable):
                     _file.decrypt(decrypted)
                     decrypted.seek(0)
                     with pd.ExcelFile(decrypted) as xls:
-                        df = xls.parse("1(32j)", header=None)
-                        dfs = [
-                            xls.parse(
-                                sheet,
-                                header=None,
-                                usecols="X,AC,AE,AG,AH,AK,AL,AM,AN",
-                                skiprows=9,
-                                nrows=64,
-                            )
-                            for sheet in xls.sheet_names
-                            if sheet.endswith("(32i)")
-                        ]
+                        if "1(32j)" in xls.sheet_names:
+                            df = xls.parse("1(32j)", header=None)
+                            dfs = [
+                                xls.parse(
+                                    sheet,
+                                    header=None,
+                                    usecols="X,AC,AE,AG,AH,AK,AL,AM,AN",
+                                    skiprows=9,
+                                    nrows=64,
+                                )
+                                for sheet in xls.sheet_names
+                                if sheet.endswith("(32i)")
+                            ]
+        # except Exception as e:
+        #     logging.error(f"32卡错误: {str(e)}")
+        #     raise
+        # else:
         number = df.iloc[2:5, 3].dropna().values[0].replace(" ", "")
         title = df.iloc[0, 2]
         icmd = float(df.iloc[22, 8])  # 转换为数值类型
@@ -230,11 +236,9 @@ class Worker(QRunnable):
         combined_df.insert(3, "stage", self.stage)
         combined_df.dropna(subset=["code"], inplace=True)
 
-        output_dir = Path("output")
-        output_dir.mkdir(exist_ok=True)
-        combined_df.to_csv(
-            output_dir / f"{title}.csv", index=False, encoding="utf-8-sig"
-        )
+        # output_dir = Path("output")
+        # output_dir.mkdir(exist_ok=True)
+        combined_df.to_csv(f"output/{title}.csv", index=False, encoding="utf-8-sig")
         total_df = pd.DataFrame(
             [
                 [
@@ -251,10 +255,10 @@ class Worker(QRunnable):
             columns=[
                 "number",
                 "title",
-                "category",
+                "stage",
                 "icmd",
                 "icmc",
-                "stage",
+                "category",
                 "date",
                 "file",
             ],
@@ -293,24 +297,34 @@ class Widget(QWidget):
         self.ui.pushButton_2.clicked.connect(self.start_jobs)
         self.ui.pushButton_5.clicked.connect(self.clear_db)
         self.ui.pushButton_6.clicked.connect(self.clear_log)
-        self.ui.pushButton_9.clicked.connect(self.model_table)
+        self.ui.pushButton_9.clicked.connect(self.model_stage)
         self.ui.pushButton_10.clicked.connect(self.delete_db)
         self.ui.pushButton_21.clicked.connect(self.get_folder)
         self.ui.pushButton_11.clicked.connect(self.clear_total)
         self.ui.pushButton_12.clicked.connect(self.model_total)
+        self.ui.pushButton_7.clicked.connect(self.setup_config)
+        self.ui.pushButton_8.clicked.connect(self.open_config)
+        self.ui.pushButton_14.clicked.connect(self.delete_output)
+        self.ui.tableView_2.doubleClicked.connect(self.query_total)
 
     def setup_config(self):
-        self.ui.comboBox.addItems()
+        self.ui.comboBox.clear()
+        self.ui.comboBox.addItems(STAGE_LIST)
+
+    def open_config(self):
+        config_file = Path("config.py")
+        if config_file.exists():
+            subprocess.Popen(["notepad.exe", str(config_file)])
 
     def start_jobs(self):
         if self.files:
-            self.stage = self.ui.comboBox.currentText()
+
             self.restart()
             pool = QThreadPool.globalInstance()
             for n, file in enumerate(self.files, start=1):
-                self.ui.textEdit.append(
-                    f'{QDateTime.currentDateTime().toString("yyyy-MM-dd hh:mm:ss zzz")}, {file}'
-                )
+                # self.ui.textEdit.append(
+                #     f'{QDateTime.currentDateTime().toString("yyyy-MM-dd hh:mm:ss zzz")}, {file}'
+                # )
                 worker = Worker(n, file, self.stage)
                 worker.signals.completed.connect(self.complete)
                 worker.signals.started.connect(self.start)
@@ -326,12 +340,13 @@ class Widget(QWidget):
         self.ui.tableWidget.setRowCount(0)  # 清空表格
 
     def start(self, n):
-        self.ui.listWidget.addItem(f"任务 #{n} 已启动...")
+        self.ui.listWidget.addItem(f"任务 #{n}:{Path(self.files[n-1])} 已启动...")
+        self.ui.listWidget.scrollToBottom()
         self.ui.lineEdit.setText(f"{n}/{len(self.files)}: {Path(self.files[n-1]).name}")
 
     def complete(self, msg):
         n, file, number, title, icmd, icmc, category, time = msg
-        self.ui.listWidget.addItem(f"任务 #{n} 已完成")
+        self.ui.listWidget.addItem(f"任务 #{n}:{Path(self.files[n-1])} 已完成")
         self.completed_jobs.append(n)
 
         row = self.ui.tableWidget.rowCount()
@@ -359,6 +374,7 @@ class Widget(QWidget):
         db = QSqlDatabase.addDatabase("QSQLITE")
         db.setDatabaseName("db/database.db")
         if db.open():
+            self.stage = self.ui.comboBox.currentText()
             query = QSqlQuery(db)
             query.exec(f"DROP TABLE IF EXISTS {self.stage}")
             # query.exec(f"DELETE FROM {self.stage}")
@@ -380,12 +396,20 @@ class Widget(QWidget):
         self.ui.lineEdit_3.setText("数据库已删除")
         # self.ui.lineEdit_3.setStyleSheet("color: red")
 
+    def delete_output(self):
+        output_dir = Path("output")
+        if output_dir.exists():
+            for file in output_dir.iterdir():
+                file.unlink()
+        self.ui.lineEdit_3.setText("输出文件已删除")
+
     def clear_log(self):
         with open("log/report2csv.log", "w") as f:
             f.write("")
         self.ui.lineEdit_3.setText("日志已清空")
 
     def get_folder(self):
+        self.stage = self.ui.comboBox.currentText()
         _folder = QFileDialog.getExistingDirectory(
             self,
             "打开文件夹",
@@ -396,6 +420,7 @@ class Widget(QWidget):
             self.ui.progressBar.setMaximum(len(self.files))
 
     def get_files(self):
+        self.stage = self.ui.comboBox.currentText()
         self.files, _ = QFileDialog.getOpenFileNames(
             self,
             "打开文件",
@@ -405,7 +430,7 @@ class Widget(QWidget):
         if self.files:
             self.ui.progressBar.setMaximum(len(self.files))
 
-    def model_table(self):
+    def model_stage(self):
         if QSqlDatabase.contains("qt_sql_default_connection"):
             QSqlDatabase.removeDatabase("qt_sql_default_connection")
         db = QSqlDatabase.addDatabase("QSQLITE")
@@ -427,6 +452,69 @@ class Widget(QWidget):
             self.total_model.setQuery(f"select * from 'total'")
             self.ui.tableView_2.setModel(self.total_model)
             self.ui.tableView_2.resizeColumnsToContents()
+
+    def query_total(self):
+        row = self.ui.tableView_2.currentIndex().row()
+        number = self.ui.tableView_2.currentIndex().sibling(row, 0).data()
+        # name = self.ui.tableView_2.currentIndex().sibling(row, 1).data()
+        # data = self.ui.tableView_2.currentIndex().data()
+        # self.ui.comboBox_2.setCurrentText(name)
+        if QSqlDatabase.contains("qt_sql_default_connection"):
+            QSqlDatabase.removeDatabase("qt_sql_default_connection")
+        db = QSqlDatabase.addDatabase("QSQLITE")
+        db.setDatabaseName("db/database.db")
+        if db.open():
+            self.query_model = QSqlQueryModel(self)
+            sql = f"select number, title, stage, icmd, icmc, category from 'total' where number = '{number}'"
+            self.query_model.setQuery(sql)
+            self.ui.tableView_3.setModel(self.query_model)
+            self.ui.tableView_3.resizeColumnsToContents()
+            # self.ui.tabWidget.setCurrentIndex(3)
+
+            self.stage_model = QSqlQueryModel(self)
+
+            """
+            select
+            ET0.number || '-' || ET0.code as coder,
+            ET0.upper_tolerance,
+            ET0.lower_tolerance,
+            ET0.part1 as ET0_average,
+            ET1.part1 as ET1_average
+            from ET0
+            left join ET1 ON ET1.number || '-' || ET1.code =  ET0.number || '-' || ET0.code
+            where ET0.part = 'K300331560'
+            """
+            
+            sql = f"""
+                    select 
+                    number || '-' || code as coder, 
+                    upper_tolerance,
+                    lower_tolerance,
+                    part1 as average 
+                    from 'ET0' where part = '{number}'
+                    left join 'ET1' on 'ET0'.coder = 'ET1'.coder
+                    where 'ET1'.part = '{number}'
+                """
+            print(sql)
+            self.stage_model.setQuery(sql)
+            self.ui.tableView_4.setModel(self.stage_model)
+            self.ui.tableView_4.resizeColumnsToContents()
+        self.ui.tabWidget.setCurrentIndex(4)
+
+    def query_stage(self):
+        row = self.ui.tableView_2.currentIndex().row()
+        number = self.ui.tableView_2.currentIndex().sibling(row, 0).data()
+        if QSqlDatabase.contains("qt_sql_default_connection"):
+            QSqlDatabase.removeDatabase("qt_sql_default_connection")
+        db = QSqlDatabase.addDatabase("QSQLITE")
+        db.setDatabaseName("db/database.db")
+        if db.open():
+            self.stage_model = QSqlQueryModel(self)
+            sql = f"select number, code, part1 from {self.stage} where number = '{number}'"
+            self.query_model.setQuery(sql)
+            self.ui.tableView_4.setModel(self.stage_model)
+            self.ui.tableView_4.resizeColumnsToContents()
+        self.ui.tabWidget.setCurrentIndex(4)
 
 
 if __name__ == "__main__":
